@@ -1,5 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from '../media/images/metro.svg';
+import '../media/styles/App.css';
 
 function App() {
   return (
@@ -7,9 +7,12 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          This is our first Metrix page
         </p>
       </header>
+      <body>
+        <button></button>
+      </body>
     </div>
   );
 }
