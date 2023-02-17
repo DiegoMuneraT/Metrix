@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button, CssBaseline, Avatar, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material'
-import { LockOutlined } from '@mui/icons-material';
+import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material'
+import logo from '../media/images/logopng.png'
 
 function Copyright(props) {
     return(
@@ -50,9 +50,8 @@ function Login() {
                 <CssBaseline/>
                 <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
 
-                    <Avatar sx={{ m:1, bgcolor: 'secondary.main' }}>
-                        <LockOutlined/>
-                    </Avatar>
+                    
+                    <img src={logo} className="App-logo" alt="logo" />
 
                     <Typography component='h1' variant='h5'>
                         Usuario, registrate

@@ -1,4 +1,4 @@
-import logo from '../media/images/metro.svg';
+import logo from '../media/images/logopng.png';
 import '../media/styles/App.css';
 
 function App() {
