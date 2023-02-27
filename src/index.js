@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './media/styles/index.css';
 import App from './components/App';
+import Login from './components/sellerView'
+
 import Login from './components/pages/login/loginView'
 import reportWebVitals from './reportWebVitals';
 
