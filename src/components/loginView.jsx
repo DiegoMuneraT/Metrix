@@ -1,6 +1,7 @@
 import React from 'react'
-import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material'
+import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider, Select, MenuItem, InputLabel,FormControl } from '@mui/material'
 import logo from '../media/images/logopng.png'
+
 
 function Copyright(props) {
     return(
@@ -41,6 +42,7 @@ function Login() {
         console.log({
             email: data.get('email'),
             password: data.get('password'),
+
         });
     };
 
@@ -66,6 +68,22 @@ function Login() {
 
                             <Grid item xs={12} sm={6}>
                                 <TextField required autoComplete='family-name' fullWidth id='lastName' label='Apellido'/>
+                            </Grid>
+                            
+                            <Grid item xs={49} >
+                                <FormControl fullWidth>
+                                    <InputLabel  id="demo-simple-select-label">Tipo De Usuario</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={'typeuser'}
+                                            label="Age"
+                                        >
+                                            <MenuItem value={'vendedor'}>Vendedor</MenuItem>
+                                            <MenuItem value={'conector'}>Conector</MenuItem>
+                                            <MenuItem value={'receptor'}>Receptor</MenuItem>
+                                        </Select>
+                                </FormControl>
                             </Grid>
 
                             <Grid item xs={12}>
