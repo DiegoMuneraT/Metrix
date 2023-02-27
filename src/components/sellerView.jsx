@@ -47,7 +47,7 @@ return (
               <img src={logo} className="App-logo" alt="logo" />
 
               <Typography component='h1' variant='h5'>
-                  Agregar Un Articulo
+                  Agregar Un Paquete
               </Typography>
           </Box>
           <Copyright sx={{ mt:5 }}/>
