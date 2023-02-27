@@ -1,6 +1,8 @@
 import React from 'react'
 import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material'
 import logo from '../media/images/logopng.png'
+import { writeUserData } from '../../../services/database/firebaseCalls';
+import { IdField } from '../../../services/hooks/useID';
 
 function Copyright(props) {
     return(
@@ -50,7 +52,6 @@ function Login() {
                 <CssBaseline/>
                 <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
 
-                    
                     <img src={logo} className="App-logo" alt="logo" />
 
                     <Typography component='h1' variant='h5'>
