@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material'
-import logo from '../media/images/logopng.png'
+import logo from '../../../media/images/logopng.png'
 
 function Copyright(props) {
     return(

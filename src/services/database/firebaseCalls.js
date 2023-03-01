@@ -1,7 +1,7 @@
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import { database } from "./firebaseConfig";
 
-const db = database();
+const db = getDatabase();
 
 export function writeUserData(userId, name, email, userType, password) {
   set(ref(db, 'usuarios/' + userId), {
