@@ -42,8 +42,7 @@ return (
       <Container component='main' maxWidth='xs'>
           <CssBaseline/>
           <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-
-                    
+   
               <img src={logo} className="App-logo" alt="logo" />
 
               <Typography component='h1' variant='h5'>
