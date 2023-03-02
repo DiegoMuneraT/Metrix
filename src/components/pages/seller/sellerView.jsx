@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material'
+import { Button, CssBaseline, Link, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material'
 import logo from 'media/images/logopng.png'
 
 function Copyright(props) {
@@ -14,8 +14,6 @@ function Copyright(props) {
       </Typography>
   );
 }
-
-
 
 const theme = createTheme({
     palette: {
@@ -35,26 +33,26 @@ const theme = createTheme({
     },
 });
 
-function Login() {
+function Seller() {
 
-return (
-  <ThemeProvider theme={theme}>
-      <Container component='main' maxWidth='xs'>
-          <CssBaseline/>
-          <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-   
-              <img src={logo} className="App-logo" alt="logo" />
+    return (
+    <ThemeProvider theme={theme}>
+        <Container component='main' maxWidth='xs'>
+            <CssBaseline/>
+            <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+    
+                <img src={logo} className="App-logo" alt="logo" />
 
-              <Typography component='h1' variant='h5'>
-                  Agregar Un Paquete
-              </Typography>
-          </Box>
-          <Copyright sx={{ mt:5 }}/>
-      </Container>
+                <Typography component='h1' variant='h5'>
+                    Agregar Un Paquete
+                </Typography>
+            </Box>
+            <Copyright sx={{ mt:5 }}/>
+        </Container>
 
-  </ThemeProvider>
+    </ThemeProvider>
 
-);
+    );
 }
 
-export default Login
+export default Seller

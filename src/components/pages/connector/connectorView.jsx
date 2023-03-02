@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material'
+import { Button, CssBaseline, Link, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material'
 import logo from 'media/images/logopng.png'
 
 function Copyright(props) {
@@ -33,7 +33,7 @@ const theme = createTheme({
     },
 });
 
-function Login() {
+function Connector() {
 
 return (
   <ThemeProvider theme={theme}>
@@ -55,4 +55,4 @@ return (
 );
 }
 
-export default Login
+export default Connector

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material'
+import { Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material'
 import logo from 'media/images/logopng.png'
 
 function Copyright(props) {
@@ -33,6 +33,7 @@ const theme = createTheme({
     },
 });
 
+// ! - - ESTA FUNCION DEBE SER UN COMPONENTE A PARTE DE LA VISTA - - !
 function Login() {
 
     const handleSubmit = (event) => {

@@ -36,8 +36,9 @@ const theme = createTheme({
     },
 });
 
-function Login() {
+function Signup() {
 
+    // ! - - ESTA FUNCION DEBE SER UN COMPONENTE A PARTE DE LA VISTA - - !
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -120,4 +121,4 @@ function Login() {
     );
 }
 
-export default Login
+export default Signup

@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          This is our first Metrix page
+          This is our first Metrix view
         </p>
       </header>
       <body>
