@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './media/styles/index.css';
+import 'media/styles/index.css';
 //import App from './components/App';
 import Login from 'components/pages/usrLogin/loginView'
+import Register from 'components/pages/usrSignup/signupView'
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Login />
+    <Register />
   </React.StrictMode>
 );
 
