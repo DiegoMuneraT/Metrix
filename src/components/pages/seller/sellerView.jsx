@@ -41,7 +41,7 @@ function Seller() {
             <CssBaseline/>
             <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
     
-                <img src={logo} className="App-logo" alt="logo" />
+                <Box component='img' sx={{ height: 110, width: 180, maxHeight: { xs: 110, md: 180 }, maxWidth: { xs: 180, md: 180} }} src={logo}/>
 
                 <Typography component='h1' variant='h5'>
                     Agregar Un Paquete

@@ -38,16 +38,16 @@ function Connector() {
 return (
   <ThemeProvider theme={theme}>
       <Container component='main' maxWidth='xs'>
-          <CssBaseline/>
-          <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <CssBaseline/>
+        <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
 
-              <img src={logo} className="App-logo" alt="logo" />
+            <Box component='img' sx={{ height: 110, width: 180, maxHeight: { xs: 110, md: 180 }, maxWidth: { xs: 180, md: 180} }} src={logo}/>
 
-              <Typography component='h1' variant='h5'>
+            <Typography component='h1' variant='h5'>
                 Tomar Pedido
-              </Typography>
-          </Box>
-          <Copyright sx={{ mt:5 }}/>
+            </Typography>
+        </Box>
+        <Copyright sx={{ mt:5 }}/>
       </Container>
 
   </ThemeProvider>

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider, Select, MenuItem, InputLabel,FormControl } from '@mui/material'
 import logo from 'media/images/logopng.png'
-import { writeUserData } from 'services/database/firebaseCalls';
-import { IdField } from 'services/hooks/useID';
-
+//import { writeUserData } from 'services/database/firebaseCalls';
+//import { IdField } from 'services/hooks/useID';
+import validation from 'components/signForm/validation';
 
 function Copyright(props) {
     return(
@@ -37,31 +37,19 @@ const theme = createTheme({
 });
 
 function Signup() {
-
-    // ! - - ESTA FUNCION DEBE SER UN COMPONENTE A PARTE DE LA VISTA - - !
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-
-        });
-    };
-
     return (
         <ThemeProvider theme={theme}>
             <Container component='main' maxWidth='xs'>
                 <CssBaseline/>
                 <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
 
-                    <img src={logo} className="App-logo" alt="logo" />
+                    <Box component='img' sx={{ height: 110, width: 180, maxHeight: { xs: 110, md: 180 }, maxWidth: { xs: 180, md: 180} }} src={logo}/>
 
                     <Typography component='h1' variant='h5'>
                         Usuario, registrate
                     </Typography>
 
-                    <Box component='form' noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    <Box component='form' noValidate onSubmit={validation} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
 
                             <Grid item xs={12} sm={6}>
