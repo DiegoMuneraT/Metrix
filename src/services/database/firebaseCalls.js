@@ -3,20 +3,31 @@ import { database } from "./firebaseConfig";
 
 const db = getDatabase();
 
-export function writeUserData(userId, name, email, userType, password) {
-  set(ref(db, 'usuarios/' + userId), {
+export function writeUserData({
+  userId,
+  name,
+  email,
+  userType,
+  password,
+  tokens = 0,
+}) {
+  set(ref(db, "usuarios/" + userId), {
     id: userId,
     tipo: userType,
-    nombre : name,
+    nombre: name,
     correo: email,
     clave: password,
+    tokens: tokens,
   });
 }
 
-export function readUserData(userId){
-    const getInfo = ref(db, 'usuarios/' + userId);
-    onValue(getInfo, (snapshot) => {
-    const data = snapshot.val();
-    console.log('El usuario se llama:', data.nombre)
-});
+export function readUserData(userId) {
+  const getInfo = ref(db, "usuarios/" + userId);
+  onValue(getInfo, (snapshot) => {
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+    } else {
+      console.log("No data available");
+    }
+  });
 }
