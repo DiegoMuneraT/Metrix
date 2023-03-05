@@ -60,20 +60,8 @@ function Signup() {
                                 <TextField required autoComplete='family-name' fullWidth id='lastName' label='Apellido'/>
                             </Grid>
                             
-                            <Grid item xs={49} >
-                                <FormControl fullWidth>
-                                    <InputLabel  id="demo-simple-select-label">Tipo De Usuario</InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={'typeuser'}
-                                            label="Age"
-                                        >
-                                            <MenuItem value={'vendedor'}>Vendedor</MenuItem>
-                                            <MenuItem value={'conector'}>Conector</MenuItem>
-                                            <MenuItem value={'receptor'}>Receptor</MenuItem>
-                                        </Select>
-                                </FormControl>
+                            <Grid item xs={12}>
+                                aqui va el group forms
                             </Grid>
 
                             <Grid item xs={12}>
