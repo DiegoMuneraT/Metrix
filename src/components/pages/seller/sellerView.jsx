@@ -1,6 +1,28 @@
-import React from 'react'
-import { Button, CssBaseline, Link, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material'
-import logo from 'media/images/logopng.png'
+// react
+import React from "react";
+// @mui/material
+import {
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+  createTheme,
+  ThemeProvider,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
+// media
+import logo from "media/images/logopng.png";
+// components
+import theme from 'components/theme/getTheme'
 
 function Copyright(props) {
   return(
@@ -14,24 +36,6 @@ function Copyright(props) {
       </Typography>
   );
 }
-
-const theme = createTheme({
-    palette: {
-        background: {
-            default: '#282c34'
-        },
-        text: {
-            primary: '#ffff',
-            secondary: '#ffff'
-        },
-        primary:  {
-            main: '#8bc34a'
-        },
-        secondary: {
-            main: '#8bc34a'
-        },
-    },
-});
 
 function Seller() {
 

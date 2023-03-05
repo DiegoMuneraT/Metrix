@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'media/styles/index.css';
-//import Login from 'components/pages/usrLogin/loginView'
 import Register from 'components/pages/usrSignup/signupView'
 import reportWebVitals from './reportWebVitals';
 

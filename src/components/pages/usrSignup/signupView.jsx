@@ -1,4 +1,6 @@
+// react
 import React from "react";
+// @mui/material
 import {
   Button,
   CssBaseline,
@@ -10,54 +12,30 @@ import {
   Box,
   Typography,
   Container,
-  createTheme,
   ThemeProvider,
   Select,
   MenuItem,
   InputLabel,
   FormControl,
 } from "@mui/material";
+// media
 import logo from "media/images/logopng.png";
-//import { writeUserData } from 'services/database/firebaseCalls';
-//import { IdField } from 'services/hooks/useID';
+// components
 import validation from "components/signForm/validation";
+import theme from 'components/theme/getTheme'
 
 function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright @ "}
-      <Link color="inherit" href="#">
-        Metrix
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
+  return(
+      <Typography variant='body2' color='text.secondary' align='center' {...props}>
+          {'Copyright @ '}
+          <Link color="inherit" href='#'>
+              Metrix
+          </Link> {' '}
+          {new Date().getFullYear()}
+          {'.'}
+      </Typography>
   );
 }
-
-const theme = createTheme({
-  palette: {
-    background: {
-      default: "#282c34",
-      paper: "#282c34",
-    },
-    text: {
-      primary: "#ffff",
-      secondary: "#ffff",
-    },
-    primary: {
-      main: "#8bc34a",
-    },
-    secondary: {
-      main: "#8bc34a",
-    },
-  },
-});
 
 function Signup() {
   // these codes controls both the type and the id of the user
