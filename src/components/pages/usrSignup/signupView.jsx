@@ -22,18 +22,23 @@ import {
 import logo from "media/images/logopng.png";
 // components
 import validation from "components/signForm/validation";
-import theme from 'components/theme/getTheme'
+import theme from "components/theme/getTheme";
 
 function Copyright(props) {
-  return(
-      <Typography variant='body2' color='text.secondary' align='center' {...props}>
-          {'Copyright @ '}
-          <Link color="inherit" href='#'>
-              Metrix
-          </Link> {' '}
-          {new Date().getFullYear()}
-          {'.'}
-      </Typography>
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright @ "}
+      <Link color="inherit" href="#">
+        Metrix
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
   );
 }
 
@@ -43,14 +48,13 @@ function Signup() {
   const [userId, setUserId] = React.useState("");
 
   const handleChange = (event) => {
-    if (event.target.name === "userType") {
-      setUserType(event.target.value);
-    } else {
+    if (event.target.name !== "userType") {
       // these code only allows users to type numerical values for id
       const regex = /^[0-9\b]+$/;
-      if (event.target.value === "" || regex.test(event.target.value)) {
+      if (regex.test(event.target.value)) {
         setUserId(event.target.value);
       }
+      setUserType(event.target.value);
     }
   };
 
