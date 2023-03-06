@@ -22,8 +22,8 @@ import {
 // media
 import logo from "media/images/logopng.png";
 // components
-import validation from "components/signForm/validation";
 import theme from 'components/theme/getTheme'
+import auth from 'components/loginForm/auth'
 
 function Copyright(props) {
     return(
@@ -38,18 +38,7 @@ function Copyright(props) {
     );
 }
 
-// ! - - ESTA FUNCION DEBE SER UN COMPONENTE A PARTE DE LA VISTA - - !
 function Login() {
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
-
     return (
         <ThemeProvider theme={theme}>
             <Container component='main' maxWidth='xs'>
@@ -62,7 +51,7 @@ function Login() {
                         Iniciar Sesión
                     </Typography>
 
-                    <Box component='form' noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    <Box component='form' noValidate onSubmit={auth} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField required fullWidth id='email' label='Correo Electronico' name='email' autoComplete='email'/>

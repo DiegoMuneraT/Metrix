@@ -1,7 +1,8 @@
 import { writeUserData, readUserData } from "services/database/firebaseCalls";
 
-function validation(event) {
+const validation = (event) => {
   event.preventDefault();
+
   const data = new FormData(event.currentTarget);
   const user = {
     userId: data.get("userId"),
