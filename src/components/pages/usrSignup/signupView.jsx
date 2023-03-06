@@ -54,8 +54,8 @@ function Signup() {
       if (regex.test(event.target.value)) {
         setUserId(event.target.value);
       }
-      setUserType(event.target.value);
     }
+    setUserType(event.target.value);
   };
 
   return (
