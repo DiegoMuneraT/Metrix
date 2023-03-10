@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import 'media/styles/index.css';
 import Register from 'components/pages/usrSignup/signupView'
 import reportWebVitals from './reportWebVitals';
+import Login from 'components/pages/usrLogin/loginView';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

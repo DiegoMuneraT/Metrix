@@ -1,6 +1,8 @@
 // react
-import React from "react";
-// @mui/material
+import React, { useState } from "react";
+import 'firebase/auth';
+import { useFirebaseApp, useUser } from 'reactfire';
+// @mui
 import {
   Button,
   CssBaseline,
@@ -43,13 +45,14 @@ function Copyright(props) {
 }
 
 function Signup() {
-  // these codes controls both the type and the id of the user
+
+  // manage type and id of the user
   const [userType, setUserType] = React.useState("");
   const [userId, setUserId] = React.useState("");
 
   const handleChange = (event) => {
     if (event.target.name !== "userType") {
-      // these code only allows users to type numerical values for id
+      // only allow user to type numerical values for id
       const regex = /^[0-9\b]+$/;
       if (regex.test(event.target.value)) {
         setUserId(event.target.value);
@@ -81,8 +84,8 @@ function Signup() {
             src={logo}
           />
 
-          <Typography component="h1" variant="h5">
-            Usuario, registrate
+          <Typography component="h1" variant="h4">
+            Registrate
           </Typography>
 
           <Box
@@ -149,6 +152,7 @@ function Signup() {
                   onChange={handleChange}
                 />
               </Grid>
+
               <Grid item xs={12}>
                 <TextField
                   required
