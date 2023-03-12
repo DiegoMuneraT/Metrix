@@ -12,4 +12,6 @@ export default (props) => {
     const submit = async () => {
         await firebase.auth().createUserWithEmailAndPassword(email, password);
     }
+
+    
 }
