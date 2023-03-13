@@ -23,6 +23,7 @@ import {
 import logo from "media/images/logopng.png";
 // components
 import theme from "components/theme/getTheme";
+import Orders from "components/orders/Orders";
 
 function Copyright(props) {
   return (
@@ -68,66 +69,8 @@ function Connector() {
           <Typography component="h1" variant="h5">
             Tomar Pedido
           </Typography>
-          <Box
-            sx={{
-              marginTop: 4,
-              display: "flex",
-              flexDirection: "column",
-              width: 400,
-              maxWidth: { xs: 400, md: 400 },
-            }}
-          >
-            <Grid
-              container
-              sx={{
-                alignItems: "center",
-                boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
-                paddingLeft: "20px",
-                borderRadius: "5px",
-                mt: 5,
-              }}
-            >
-              <Grid xs={8} item={true}>
-                <Typography component="h3" variant="p">
-                  35467
-                </Typography>
-                <Typography component="h3" variant="body1">
-                  Aguacatala-Sabaneta
-                </Typography>
-              </Grid>
-              <Grid xs={4} item={true}>
-                <Button variant="contained" sx={{ mt: 3, mb: 2 }}>
-                  {" "}
-                  Tomar{" "}
-                </Button>
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              sx={{
-                alignItems: "center",
-                boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
-                paddingLeft: "20px",
-                borderRadius: "5px",
-                marginTop: "5px",
-              }}
-            >
-              <Grid xs={8} item={true}>
-                <Typography component="h3" variant="p">
-                  35467
-                </Typography>
-                <Typography component="h3" variant="body1">
-                  Aguacatala-Sabaneta
-                </Typography>
-              </Grid>
-              <Grid xs={4} item={true}>
-                <Button variant="contained" sx={{ mt: 3, mb: 2 }}>
-                  {" "}
-                  Tomar{" "}
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
+          {/* ordenes */}
+          <Orders />
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
