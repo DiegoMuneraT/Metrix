@@ -1,7 +1,7 @@
 // react
 import React, { useState } from "react";
-import 'firebase/auth';
-import { useFirebaseApp, useUser } from 'reactfire';
+import "firebase/auth";
+// import { useFirebaseApp, useUser } from "reactfire";
 // @mui
 import {
   Button,
@@ -45,20 +45,20 @@ function Copyright(props) {
 }
 
 function Signup() {
-
   // manage type and id of the user
-  const [userType, setUserType] = React.useState("");
-  const [userId, setUserId] = React.useState("");
+  const [userType, setUserType] = useState("");
+  const [userId, setUserId] = useState("");
 
   const handleChange = (event) => {
-    if (event.target.name !== "userType") {
+    if (event.target.name === "userType") {
+      setUserType(event.target.value);
+    } else {
       // only allow user to type numerical values for id
       const regex = /^[0-9\b]+$/;
       if (regex.test(event.target.value)) {
         setUserId(event.target.value);
       }
     }
-    setUserType(event.target.value);
   };
 
   return (

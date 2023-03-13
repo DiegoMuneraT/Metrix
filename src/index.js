@@ -1,11 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import 'media/styles/index.css';
-import Register from 'components/pages/usrSignup/signupView'
-import reportWebVitals from './reportWebVitals';
-import Login from 'components/pages/usrLogin/loginView';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "media/styles/index.css";
+import Register from "components/pages/usrSignup/signupView";
+import reportWebVitals from "./reportWebVitals";
+import Login from "components/pages/usrLogin/loginView";
+import Connector from "components/pages/connector/connectorView";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Register />

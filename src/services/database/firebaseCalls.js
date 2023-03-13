@@ -1,5 +1,5 @@
 import { getDatabase, ref, set, onValue } from "firebase/database";
-import { database } from "./firebaseConfig"
+import { database } from "./firebaseConfig";
 
 const db = getDatabase();
 
@@ -23,11 +23,13 @@ export function writeUserData({
 
 export function readUserData(userId) {
   const getInfo = ref(db, "usuarios/" + userId);
+  let userData;
   onValue(getInfo, (snapshot) => {
     if (snapshot.exists()) {
-      console.log(snapshot.val());
+      userData = snapshot.val();
     } else {
       console.log("No data available");
     }
   });
+  return userData;
 }

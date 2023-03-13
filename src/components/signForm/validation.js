@@ -13,10 +13,15 @@ const validation = (event) => {
     allowExtraEmails: data.get("allowExtraEmails"),
   };
 
-  // save user in the database
-  writeUserData(user);
-  //verify that user has been saved
-  readUserData(user.userId);
-}
+  // llamado a la base de datos para ver si el user existe
+  const userData = readUserData(user.userId);
+  // console.log(userData);
+  if (userData) {
+    console.log("Usuario ya existe " + userData.correo);
+  } else {
+    writeUserData(user);
+    console.log("Te has registrado correctamente");
+  }
+};
 
 export default validation;
