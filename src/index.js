@@ -1,15 +1,32 @@
+// React
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "media/styles/index.css";
-import Register from "components/pages/usrSignup/signupView";
 import reportWebVitals from "./reportWebVitals";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+// Styled components
+import "media/styles/index.css";
+
+// Pages
+import Register from "components/pages/usrSignup/signupView";
 import Login from "components/pages/usrLogin/loginView";
 import Connector from "components/pages/connector/connectorView";
+import Seller from "components/pages/seller/sellerView";
+import Buyer from "components/pages/buyer/buyerView";
+import ErrorPage from "components/pages/error/ErrorPage";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Register/>,
+    errorElement: <ErrorPage/>,
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Register />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

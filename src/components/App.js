@@ -1,4 +1,7 @@
+// Logo
 import logo from 'media/images/logopng.png'
+
+// Styled components
 import 'media/styles/App.css';
 
 function App() {
