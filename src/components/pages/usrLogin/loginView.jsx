@@ -101,18 +101,20 @@ function Login() {
                   autoComplete="new-password"
                 />
               </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{
-                  mt: 3,
-                  mb: 2,
-                }}
-              >
-                {" "}
-                Iniciar Sesión{" "}
-              </Button>
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{
+                    mt: 0,
+                    mb: 2,
+                  }}
+                >
+                  {" "}
+                  Iniciar Sesión{" "}
+                </Button>
+                </Grid>
             </Grid>
           </Box>
         </Box>
