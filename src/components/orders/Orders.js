@@ -9,23 +9,31 @@ const Order = ({ id, inicio, destino, handleTake, taken }) => {
       container
       sx={{
         alignItems: "center",
-        boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
+        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
         paddingLeft: "20px",
         borderRadius: "5px",
+        border: "0.3px solid rgba(0, 0, 0, 0.5)",
+        mt: 1.6,
       }}
     >
-      <Grid xs={8} item={true}>
+      <Grid xs={7} item={true}>
         <Typography component="h3" variant="p">
           {id}
         </Typography>
-        <Typography component="h3" variant="body1">
+        <Typography component="h3" variant="body2">
           {inicio} - {destino}
         </Typography>
       </Grid>
-      <Grid xs={4} item={true}>
+      <Grid
+        xs={5}
+        item={true}
+        sx={{
+          textAlign: "right",
+        }}
+      >
         <Button
           variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+          sx={{ mt: 2, mb: 2, mr: 2 }}
           onClick={() => handleTake(id)}
         >
           {" "}
@@ -114,26 +122,39 @@ const Orders = () => {
         marginTop: 4,
         display: "flex",
         flexDirection: "column",
-        width: 400,
+        width: 330,
         maxWidth: { xs: 400, md: 400 },
       }}
     >
-      <Typography>Pedido Activo</Typography>
+      <Typography
+        component="h6"
+        variant="h6"
+        sx={{ fontWeight: "600", color: "#8BC34A", mb: 0.6 }}
+        align="center"
+      >
+        PEDIDO ACTIVO
+      </Typography>
       {taken ? (
         takenOrder(orders)
       ) : (
-        <Typography>No hay pedido activo</Typography>
+        <Typography align="center">No hay pedido activo</Typography>
       )}
       <Box
         sx={{
-          marginTop: 4,
+          mt: 4.2,
           display: "flex",
           flexDirection: "column",
-          width: 400,
-          maxWidth: { xs: 400, md: 400 },
+          borderTop: "0.6px solid #1F1F1F",
         }}
       >
-        <Typography>Pedidos Libres</Typography>
+        <Typography
+          component="h6"
+          variant="h6"
+          sx={{ fontWeight: "600", color: "#8BC34A", mt: 3.4, mb: 0.6 }}
+          align="center"
+        >
+          PEDIDOS LIBRES
+        </Typography>
         {orderConstructor(orders)}
       </Box>
     </Box>
