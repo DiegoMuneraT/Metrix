@@ -3,7 +3,7 @@ import { Button, Grid, Box, Typography } from "@mui/material";
 import { getDatabase, ref, onValue } from "firebase/database";
 
 //Componente que crea una orden con su respectivo id, inicio y destino.
-const Order = ({ id, inicio, destino }) => {
+const Order = ({ id, inicio, destino, handleTake, taken }) => {
   return (
     <Grid
       container
@@ -19,13 +19,17 @@ const Order = ({ id, inicio, destino }) => {
           {id}
         </Typography>
         <Typography component="h3" variant="body1">
-          {inicio}-{destino}
+          {inicio} - {destino}
         </Typography>
       </Grid>
       <Grid xs={4} item={true}>
-        <Button variant="contained" sx={{ mt: 3, mb: 2 }}>
+        <Button
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+          onClick={() => handleTake(id)}
+        >
           {" "}
-          Tomar{" "}
+          {taken === id ? "Entregar" : "Tomar"}{" "}
         </Button>
       </Grid>
     </Grid>
@@ -35,6 +39,7 @@ const Order = ({ id, inicio, destino }) => {
 // componente que crea todas las ordenes
 const Orders = () => {
   const [orders, setOrders] = useState([]);
+  const [taken, setTaken] = useState(null);
   //leer todos los pedidos de la base de datos
   useEffect(() => {
     const db = getDatabase();
@@ -48,20 +53,60 @@ const Orders = () => {
     });
   }, []);
   //   console.log(orders);
+  // función que cambia el valor de taken al id de la orden
+  const handleTake = (id) => {
+    if (!taken) {
+      setTaken(id);
+    } else if (taken === id) {
+      setTaken(null);
+      console.log("Pedido entregado");
+    } else {
+      console.log("Un pedido ya ha sido tomado.");
+    }
+  };
 
   // Functión que llama al componente Order para crear todas las ordenes
   const orderConstructor = (orders) => {
     const keys = Object.keys(orders);
-    const orderElements = keys.map((key) => (
-      <Order
-        key={key}
-        id={key}
-        inicio={orders[key].inicio}
-        destino={orders[key].destino}
-      />
-    ));
+    const orderElements = keys.map((key) => {
+      if (key !== taken) {
+        return (
+          <Order
+            key={key}
+            id={key}
+            inicio={orders[key].inicio}
+            destino={orders[key].destino}
+            handleTake={handleTake}
+            taken={taken}
+          />
+        );
+      }
+    });
     return orderElements;
   };
+
+  //función que itera sobre todos los pedidos para ver cual ha sido tomado.
+  const takenOrder = (orders) => {
+    const keys = Object.keys(orders);
+    const orderElements = keys.map((key) => {
+      if (key === taken) {
+        return (
+          <Order
+            key={key}
+            id={key}
+            inicio={orders[key].inicio}
+            destino={orders[key].destino}
+            handleTake={handleTake}
+            taken={taken}
+          />
+        );
+      }
+      return [];
+    });
+    return orderElements;
+  };
+
+  // console.log(taken);
 
   return (
     <Box
@@ -73,7 +118,24 @@ const Orders = () => {
         maxWidth: { xs: 400, md: 400 },
       }}
     >
-      {orderConstructor(orders)}
+      <Typography>Pedido Activo</Typography>
+      {taken ? (
+        takenOrder(orders)
+      ) : (
+        <Typography>No hay pedido activo</Typography>
+      )}
+      <Box
+        sx={{
+          marginTop: 4,
+          display: "flex",
+          flexDirection: "column",
+          width: 400,
+          maxWidth: { xs: 400, md: 400 },
+        }}
+      >
+        <Typography>Pedidos Libres</Typography>
+        {orderConstructor(orders)}
+      </Box>
     </Box>
   );
 };

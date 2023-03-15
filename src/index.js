@@ -18,8 +18,8 @@ import ErrorPage from "components/pages/error/ErrorPage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ErrorPage/>,
-    errorElement: <ErrorPage/>,
+    element: <Register />,
+    errorElement: <ErrorPage />,
   },
 ]);
 
