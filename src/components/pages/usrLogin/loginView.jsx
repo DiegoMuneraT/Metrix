@@ -5,19 +5,12 @@ import {
   Button,
   CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
   Link,
   Grid,
   Box,
   Typography,
   Container,
-  createTheme,
   ThemeProvider,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
 } from "@mui/material";
 // media
 import logo from "media/images/logopng.png";
