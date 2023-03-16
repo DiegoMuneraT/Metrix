@@ -1,50 +1,21 @@
 // react
 import React from "react";
-import { useRouteError } from 'react-router-dom'
+import { useRouteError } from "react-router-dom";
 // @mui/material
 import {
-  Button,
   CssBaseline,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Link,
-  Grid,
   Box,
   Typography,
   Container,
-  createTheme,
   ThemeProvider,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
 } from "@mui/material";
 // media
 import logo from "media/images/logopng.png";
 // components
 import theme from "components/theme/getTheme";
-import Orders from "components/orders/Orders";
+import Copyright from "components/copyright/Copyright";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright @ "}
-      <Link color="inherit" href="#">
-        Metrix
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 function ErrorPage() {
-
   const error = useRouteError();
   console.error(error);
 
@@ -75,12 +46,11 @@ function ErrorPage() {
             Oops!
           </Typography>
           <Typography component="h1" variant="h5">
-            Sorry, an unexpected error has occurred! 
+            Sorry, an unexpected error has occurred!
           </Typography>
           <Typography component="h1" variant="h5">
             <i>{error.statusText || error.message}</i>
           </Typography>
-      
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>

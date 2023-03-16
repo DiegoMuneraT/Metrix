@@ -5,7 +5,6 @@ import {
   Button,
   CssBaseline,
   TextField,
-  Link,
   Grid,
   Box,
   Typography,
@@ -17,24 +16,8 @@ import logo from "media/images/logopng.png";
 // components
 import theme from "components/theme/getTheme";
 import auth from "components/loginForm/logAuth";
+import Copyright from "components/copyright/Copyright";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright @ "}
-      <Link color="inherit" href="#">
-        Metrix
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 function Login() {
   return (
     <ThemeProvider theme={theme}>
@@ -107,7 +90,7 @@ function Login() {
                   {" "}
                   Iniciar Sesión{" "}
                 </Button>
-                </Grid>
+              </Grid>
             </Grid>
           </Box>
         </Box>

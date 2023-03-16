@@ -25,24 +25,7 @@ import logo from "media/images/logopng.png";
 // components
 import validation from "components/signForm/validation";
 import theme from "components/theme/getTheme";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright @ "}
-      <Link color="inherit" href="#">
-        Metrix
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import Copyright from "components/copyright/Copyright";
 
 function Signup() {
   // manage type and id of the user

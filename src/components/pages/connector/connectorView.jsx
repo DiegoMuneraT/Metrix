@@ -3,35 +3,17 @@ import React from "react";
 // @mui/material
 import {
   CssBaseline,
-  Link,
   Box,
   Typography,
   Container,
   ThemeProvider,
 } from "@mui/material";
-// media
-import logo from "media/images/logopng.png";
+
 // components
 import theme from "components/theme/getTheme";
 import Orders from "components/orders/Orders";
+import Copyright from "components/copyright/Copyright";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright @ "}
-      <Link color="inherit" href="#">
-        Metrix
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 function Connector() {
   return (
     <ThemeProvider theme={theme}>

@@ -95,13 +95,12 @@ const Orders = () => {
   };
 
   //función que itera sobre todos los pedidos para ver cual ha sido tomado.
-  const takenOrder = (key) => {
+  const takenOrder = (id) => {
     return (
       <Order
-        key={key}
-        id={key}
-        inicio={orders[key].inicio}
-        destino={orders[key].destino}
+        id={id}
+        inicio={orders[id].inicio}
+        destino={orders[id].destino}
         handleTake={handleTake}
         taken={taken}
       />
