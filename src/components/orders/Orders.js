@@ -5,7 +5,6 @@ import { getDatabase, ref, onValue } from "firebase/database";
 //Componente que crea una orden con su respectivo id, inicio y destino.
 const Order = ({ id, inicio, destino, handleTake, taken }) => {
   return (
-    
     <Grid
       container
       sx={{
@@ -90,29 +89,23 @@ const Orders = () => {
           />
         );
       }
+      return null;
     });
     return orderElements;
   };
 
   //función que itera sobre todos los pedidos para ver cual ha sido tomado.
-  const takenOrder = (orders) => {
-    const keys = Object.keys(orders);
-    const orderElements = keys.map((key) => {
-      if (key === taken) {
-        return (
-          <Order
-            key={key}
-            id={key}
-            inicio={orders[key].inicio}
-            destino={orders[key].destino}
-            handleTake={handleTake}
-            taken={taken}
-          />
-        );
-      }
-      return [];
-    });
-    return orderElements;
+  const takenOrder = (key) => {
+    return (
+      <Order
+        key={key}
+        id={key}
+        inicio={orders[key].inicio}
+        destino={orders[key].destino}
+        handleTake={handleTake}
+        taken={taken}
+      />
+    );
   };
 
   // console.log(taken);
@@ -136,7 +129,7 @@ const Orders = () => {
         PEDIDO ACTIVO
       </Typography>
       {taken ? (
-        takenOrder(orders)
+        takenOrder(taken)
       ) : (
         <Typography align="center">No hay pedido activo</Typography>
       )}
