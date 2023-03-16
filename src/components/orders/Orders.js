@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Button, Grid, Box, Typography } from "@mui/material";
 import { getDatabase, ref, onValue } from "firebase/database";
 
-//Componente que crea una orden con su respectivo id, inicio y destino.
-const Order = ({ id, inicio, destino, handleTake, taken }) => {
+//Componente que crea una orden con su respectivo id, start y end.
+const Order = ({ id, start, end, handleTake, taken }) => {
   return (
     <Grid
       container
@@ -21,7 +21,7 @@ const Order = ({ id, inicio, destino, handleTake, taken }) => {
           {id}
         </Typography>
         <Typography component="h3" variant="body2">
-          {inicio} - {destino}
+          {start} - {end}
         </Typography>
       </Grid>
       <Grid
@@ -51,7 +51,7 @@ const Orders = () => {
   //leer todos los pedidos de la base de datos
   useEffect(() => {
     const db = getDatabase();
-    const getInfo = ref(db, "pedidos/");
+    const getInfo = ref(db, "deliveries/");
     onValue(getInfo, (snapshot) => {
       if (snapshot.exists()) {
         setOrders(snapshot.val());
@@ -77,13 +77,13 @@ const Orders = () => {
   const orderConstructor = (orders) => {
     const keys = Object.keys(orders);
     const orderElements = keys.map((key) => {
-      if (key !== taken) {
+      if (key !== taken && orders[key].state === "Libre") {
         return (
           <Order
             key={key}
             id={key}
-            inicio={orders[key].inicio}
-            destino={orders[key].destino}
+            start={orders[key].start}
+            end={orders[key].end}
             handleTake={handleTake}
             taken={taken}
           />
@@ -99,8 +99,8 @@ const Orders = () => {
     return (
       <Order
         id={id}
-        inicio={orders[id].inicio}
-        destino={orders[id].destino}
+        start={orders[id].start}
+        end={orders[id].end}
         handleTake={handleTake}
         taken={taken}
       />

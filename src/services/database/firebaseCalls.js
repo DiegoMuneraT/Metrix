@@ -11,18 +11,18 @@ export function writeUserData({
   password,
   tokens = 0,
 }) {
-  set(ref(db, "usuarios/" + userId), {
+  set(ref(db, "users/" + userId), {
     id: userId,
-    tipo: userType,
-    nombre: name,
-    correo: email,
-    clave: password,
-    tokens: tokens,
+    userType,
+    name,
+    email,
+    password,
+    tokens,
   });
 }
 
 export function readUserData(userId) {
-  const getInfo = ref(db, "usuarios/" + userId);
+  const getInfo = ref(db, "users/" + userId);
   let userData;
   onValue(getInfo, (snapshot) => {
     if (snapshot.exists()) {

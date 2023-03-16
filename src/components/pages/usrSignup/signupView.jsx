@@ -7,8 +7,6 @@ import {
   Button,
   CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
   Link,
   Grid,
   Box,
@@ -152,19 +150,6 @@ function Signup() {
                   name="password"
                   label="Contraseña"
                   type="password"
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value="allowExtraEmails"
-                      name="allowExtraEmails"
-                      color="primary"
-                    />
-                  }
-                  label="Quiero recibir informacion, promociones y actualizaciones a mi correo."
                 />
               </Grid>
             </Grid>
