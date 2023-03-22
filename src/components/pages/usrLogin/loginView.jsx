@@ -17,6 +17,7 @@ import logo from "media/images/logopng.png";
 import theme from "components/theme/getTheme";
 import auth from "components/loginForm/logAuth";
 import Copyright from "components/copyright/Copyright";
+import BestStation from "components/bestStation/BestStation";
 
 function Login() {
   return (
@@ -90,6 +91,7 @@ function Login() {
                   {" "}
                   Iniciar Sesión{" "}
                 </Button>
+                <BestStation />
               </Grid>
             </Grid>
           </Box>
