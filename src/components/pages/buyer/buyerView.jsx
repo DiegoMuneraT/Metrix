@@ -9,13 +9,12 @@ import {
   ThemeProvider,
 } from "@mui/material";
 // media
-import logo from "media/images/logopng.png";
 // components
 import theme from "components/theme/getTheme";
-import Orders from "components/orders/Orders";
+import State from "components/state/State";
 import Copyright from "components/copyright/Copyright";
 
-function Connector() {
+function buyer() {
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="md">
@@ -28,22 +27,15 @@ function Connector() {
             alignItems: "center",
           }}
         >
-          <Box
-            component="img"
-            sx={{
-              height: 110,
-              width: 180,
-              maxHeight: { xs: 110, md: 180 },
-              maxWidth: { xs: 180, md: 180 },
-            }}
-            src={logo}
-          />
-
-          <Typography component="h1" variant="h5">
-            Tomar Pedido
+          <Typography
+            component="h1"
+            variant="h5"
+            sx={{ fontWeight: "600", color: "#8BC34A", mt: 3.4, mb: 0.6 }}
+            align="center"
+          >
+            PEDIDOS ACTIVOS 
           </Typography>
-          {/* ordenes */}
-          <Orders />
+          <State />
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
@@ -51,4 +43,4 @@ function Connector() {
   );
 }
 
-export default Connector;
+export default buyer;
