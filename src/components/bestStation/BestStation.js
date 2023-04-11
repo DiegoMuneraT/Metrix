@@ -32,8 +32,6 @@ const Station = ({ orders }) => {
     }
   });
 
-  //   console.log(stationCounter);
-
   const bestStation = () => {
     const sortedStations = Object.entries(stationCounter)
       .sort(([, a], [, b]) => a - b)
@@ -47,7 +45,7 @@ const Station = ({ orders }) => {
 
   return (
     <Typography align="center">
-      La estación con más pedidos es {bestStation()}
+      La estación con más pedidos es {bestStation()} 🔥
     </Typography>
   );
 };
