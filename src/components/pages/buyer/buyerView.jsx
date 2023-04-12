@@ -8,7 +8,7 @@ import {
   Container,
   ThemeProvider,
 } from "@mui/material";
-// media
+
 // components
 import theme from "components/theme/getTheme";
 import State from "components/state/State";
@@ -27,14 +27,7 @@ function buyer() {
             alignItems: "center",
           }}
         >
-          <Typography
-            component="h1"
-            variant="h5"
-            sx={{ fontWeight: "600", color: "#8BC34A", mt: 3.4, mb: 0.6 }}
-            align="center"
-          >
-            PEDIDOS ACTIVOS 
-          </Typography>
+          
           <State />
         </Box>
         <Copyright sx={{ mt: 5 }} />
@@ -44,3 +37,5 @@ function buyer() {
 }
 
 export default buyer;
+
+
