@@ -37,6 +37,17 @@ const router = createBrowserRouter([
     element: <Connector />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/buyer",
+    element: <Buyer />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/seller",
+    element: <Seller />,
+    errorElement: <ErrorPage />,
+  },
+
 
 ]);
 
