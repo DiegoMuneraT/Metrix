@@ -2,12 +2,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, BrowserRouter } from "react-router-dom";
 
 // Styled components
 import "media/styles/index.css";
 
 // Pages
+import Home from "components/pages/home/homePage";
 import Register from "components/pages/usrSignup/signupView";
 import Login from "components/pages/usrLogin/loginView";
 import Connector from "components/pages/connector/connectorView";
@@ -18,7 +19,17 @@ import ErrorPage from "components/pages/error/ErrorPage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Buyer />,
+    element: <Home />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
     errorElement: <ErrorPage />,
   },
 ]);

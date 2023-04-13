@@ -1,4 +1,5 @@
 import { writeUserData, readUserData } from "services/database/firebaseCalls";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const validation = (event) => {
   event.preventDefault();
@@ -11,6 +12,18 @@ const validation = (event) => {
     userType: data.get("userType"),
     password: data.get("password"),
   };
+
+  const auth = getAuth();
+  createUserWithEmailAndPassword(auth, data.get("email"), data.get("password"))
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log(user,'En sesion')
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log('Algo paso', errorMessage);
+    })
 
   // llamado a la base de datos para ver si el user existe
   const userData = readUserData(user.userId);
