@@ -32,6 +32,12 @@ const router = createBrowserRouter([
     element: <Login />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/connector",
+    element: <Connector />,
+    errorElement: <ErrorPage />,
+  },
+
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

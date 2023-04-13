@@ -21,7 +21,7 @@ import {
 // media
 import logo from "media/images/logopng.png";
 // components
-import validation from "components/signForm/validation";
+import auth_signin from "components/signForm/auth_signin";
 import theme from "components/theme/getTheme";
 import Copyright from "components/copyright/Copyright";
 
@@ -72,7 +72,7 @@ function Signup() {
           <Box
             component="form"
             autoComplete="off"
-            onSubmit={validation}
+            onSubmit={auth_signin}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
@@ -155,6 +155,7 @@ function Signup() {
             </Grid>
 
             <Button
+              href="/login"
               type="submit"
               fullWidth
               variant="contained"
@@ -166,7 +167,7 @@ function Signup() {
 
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="" variant="body2">
+                <Link href="/login" variant="body2">
                   Ya tienes una cuenta? Inicia Sesión
                 </Link>
               </Grid>

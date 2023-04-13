@@ -1,7 +1,7 @@
 import { writeUserData, readUserData } from "services/database/firebaseCalls";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-const validation = (event) => {
+const auth_signin = (event) => {
   event.preventDefault();
 
   const data = new FormData(event.currentTarget);
@@ -17,7 +17,7 @@ const validation = (event) => {
   createUserWithEmailAndPassword(auth, data.get("email"), data.get("password"))
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(user,'En sesion')
+      console.log(user,'Registrado')
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -36,4 +36,4 @@ const validation = (event) => {
   }
 };
 
-export default validation;
+export default auth_signin;

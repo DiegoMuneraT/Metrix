@@ -15,7 +15,7 @@ import {
 import logo from "media/images/logopng.png";
 // components
 import theme from "components/theme/getTheme";
-import auth from "components/loginForm/logAuth";
+import auth_login from "components/loginForm/auth_login";
 import Copyright from "components/copyright/Copyright";
 import BestStation from "components/bestStation/BestStation";
 
@@ -50,7 +50,7 @@ function Login() {
           <Box
             component="form"
             noValidate
-            onSubmit={auth}
+            onSubmit={auth_login}
             sx={{
               mt: 3,
             }}
