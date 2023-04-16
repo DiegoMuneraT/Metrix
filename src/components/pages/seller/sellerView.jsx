@@ -15,8 +15,6 @@ import {
   Grid,
   Button,
 } from "@mui/material";
-// media
-import logo from "media/images/logopng.png";
 // components
 import theme from "components/theme/getTheme";
 import Copyright from "components/copyright/Copyright";
@@ -49,17 +47,6 @@ function Seller() {
             alignItems: "center",
           }}
         >
-          <Box
-            component="img"
-            sx={{
-              height: 110,
-              width: 180,
-              maxHeight: { xs: 110, md: 180 },
-              maxWidth: { xs: 180, md: 180 },
-            }}
-            src={logo}
-          />
-
           <Typography component="h1" variant="h5">
             Ingrese el Pedido
           </Typography>

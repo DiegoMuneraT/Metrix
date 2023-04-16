@@ -26,7 +26,8 @@ import theme from "components/theme/getTheme";
 import Copyright from "components/copyright/Copyright";
 
 function Signup() {
-  // manage type and id of the user
+
+  // manage userType and id of the user
   const [userType, setUserType] = useState("");
   const [userId, setUserId] = useState("");
 
@@ -155,7 +156,6 @@ function Signup() {
             </Grid>
 
             <Button
-              href="/login"
               type="submit"
               fullWidth
               variant="contained"

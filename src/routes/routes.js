@@ -1,7 +1,7 @@
 import { Navigate, useRoutes } from "react-router-dom";
 // Pages
 import Register from "components/pages/usrSignup/signupView";
-import Login from "components/pages/usrLogin/loginView";
+import auth_login from "components/pages/usrLogin/loginView";
 import Connector from "components/pages/connector/connectorView";
 import Seller from "components/pages/seller/sellerView";
 import Buyer from "components/pages/buyer/buyerView";
@@ -13,7 +13,7 @@ export default function Router() {
     const routes = useRoutes([
         {
             path: 'loginView',
-            element: <Login />,
+            element: <auth_login />,
         },
         {
             path: 'signupView',
