@@ -1,9 +1,11 @@
 import { writeUserData, readUserData } from "services/database/firebaseCalls";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+//import { useNavigate } from "react-router-dom";
+import { auth } from "services/database/firebaseConfig";
+
 
 const auth_signin = (event) => {
   event.preventDefault();
-
   const data = new FormData(event.currentTarget);
   const user = {
     userId: data.get("userId"),
@@ -13,16 +15,16 @@ const auth_signin = (event) => {
     password: data.get("password"),
   };
 
-  const auth = getAuth();
   createUserWithEmailAndPassword(auth, data.get("email"), data.get("password"))
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(user,'Registrado')
+      console.log(user,'Registrado');
+      window.location.href = '/account'
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log('Algo paso', errorMessage);
+      console.log(`Algo paso ${errorCode}`, errorMessage);
     })
 
   // llamado a la base de datos para ver si el user existe
@@ -37,3 +39,6 @@ const auth_signin = (event) => {
 };
 
 export default auth_signin;
+
+
+
