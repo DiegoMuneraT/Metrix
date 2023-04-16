@@ -32,3 +32,37 @@ export function readUserData(userId) {
   });
   return userData;
 }
+
+export function readDeliveryData(deliveryId) {
+  const getInfo = ref(db, "deliveries/" + deliveryId);
+  let deliveryData = false;
+  onValue(getInfo, (snapshot) => {
+    if (snapshot.exists()) {
+      deliveryData = snapshot.val();
+    } else {
+      console.log("No data available");
+    }
+  });
+  return deliveryData;
+}
+
+export function writeDeliveryData(delivery) {
+  let deliveryId = Math.floor(Math.random() * 99999);
+  //Verifies if there is a delivery with the given id
+  //No funciona muy bien
+  let deliveryExists = readDeliveryData(deliveryId);
+  while (deliveryExists) {
+    console.log("Loop");
+    deliveryId = Math.floor(Math.random() * 99999);
+    deliveryExists = readDeliveryData(deliveryId);
+  }
+  const deliveriesInDB = ref(db, `deliveries/${deliveryId}`);
+  set(deliveriesInDB, {
+    id: deliveryId,
+    ...delivery,
+  });
+}
+
+export function changeDeliveryState(id, state) {
+  set(ref(db, "deliveries/" + id + "/state"), state);
+}

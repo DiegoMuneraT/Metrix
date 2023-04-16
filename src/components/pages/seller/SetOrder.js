@@ -1,4 +1,4 @@
-import { getDatabase, ref, set } from "firebase/database";
+import { writeDeliveryData } from "services/database/firebaseCalls";
 
 const SetOrder = (event) => {
   event.preventDefault();
@@ -13,16 +13,7 @@ const SetOrder = (event) => {
     price: data.get("price"),
   };
 
-  const db = getDatabase();
-  const randomId = Date.now();
-  const deliveryId = randomId - 1679359889909;
-  // console.log(deliveryId);
-
-  const deliveriesInDB = ref(db, `deliveries/${deliveryId}`);
-  set(deliveriesInDB, {
-    id: deliveryId,
-    ...delivery,
-  });
+  writeDeliveryData(delivery);
 };
 
 export default SetOrder;
