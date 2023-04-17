@@ -3,15 +3,17 @@ import { getDatabase, ref, set, onValue } from "firebase/database";
 const db = getDatabase();
 
 export function writeUserData({
-  userId,
+  uid,
+  dni,
   name,
   email,
   userType,
   password,
   tokens = 0,
 }) {
-  set(ref(db, "users/" + userId), {
-    id: userId,
+  set(ref(db, "users/" + uid), {
+    id: uid,
+    dni,
     userType,
     name,
     email,
@@ -20,8 +22,8 @@ export function writeUserData({
   });
 }
 
-export function readUserData(userId) {
-  const getInfo = ref(db, "users/" + userId);
+export function readUserData(uid) {
+  const getInfo = ref(db, "users/" + uid);
   let userData;
   onValue(getInfo, (snapshot) => {
     if (snapshot.exists()) {

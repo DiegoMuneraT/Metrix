@@ -26,7 +26,6 @@ import theme from "components/theme/getTheme";
 import Copyright from "components/copyright/Copyright";
 
 function Signup() {
-
   // manage userType and id of the user
   const [userType, setUserType] = useState("");
   const [userId, setUserId] = useState("");
