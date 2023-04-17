@@ -6,6 +6,7 @@ import { getDatabase, ref, onValue } from "firebase/database";
 
 const readUserData = (userEmail) => {
     const db = getDatabase();
+    // userEmail no esta entrando deberia entrar como "users/?id?/userEmail"
     const getInfo = ref(db, "users/");
     let userData;
     onValue(getInfo, (snapshot) => {
@@ -20,10 +21,6 @@ const readUserData = (userEmail) => {
 
 const ProtectedRoute = ({ children }) => {
     const { user } = UserAuth();
-
-    const data = readUserData(user.email);
-    // info del usuario segun email?
-    console.log(data)
 
     if(!user) {
         return <Navigate to='/' />

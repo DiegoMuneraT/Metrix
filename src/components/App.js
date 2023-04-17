@@ -1,13 +1,13 @@
 
 // Styled components
 import 'media/styles/App.css';
-
 //React
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+// Context
 import { AuthContextProvider } from 'context/authContext';
 import ProtectedRoute from './authListener/protectedRoute';
-
+// Components
 import Signin from 'components/pages/usrSignup/signupView';
 import Login from 'components/pages/usrLogin/loginView';
 import Account from './account/Account';
