@@ -36,7 +36,7 @@ Este comando iniciará la aplicación y abrirá una ventana del navegador en la 
 
 `npm start`
 
-### Listo! Ahora sabes como instalar nuestro proyecto de React desde GitHub para probarlo en tu maquina :)
+Listo! Ahora sabes como instalar nuestro proyecto de React desde GitHub para probarlo en tu maquina :)
 
 ## Pasos adicionales (No necesarios para el funcionamiento del proyecto)
 
