@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# Metrix - Guía de instalación 🔥
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Paso 1: Clonar el repositorio
 
-## Available Scripts
+Para empezar, debes clonar el repositorio en tu computadora. Puedes hacerlo usando el siguiente comando en tu terminal:
 
-In the project directory, you can run:
+`git clone https://github.com/DiegoMuneraT/MetrixTesting.git`
 
-### `npm start`
+Si lo quieres tener ordenado dentro de una carpeta, puedes hacerlo usando los siguientes comandos en tu terminal:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Dirigete a la ruta raíz
+`cd`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. Crea una carpeta llamada Metrix
+`mkdir Metrix`
 
-### `npm test`
+3. Dirigete a la carpeta que acabas de crear
+`cd Metrix`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. Clona aqui el repositorio
+`git clone https://github.com/DiegoMuneraT/MetrixTesting.git`
 
-### `npm run build`
+## Paso 2: Instalar las dependencias
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Una vez que hayas clonado el repositorio, debes instalar las dependencias necesarias para el proyecto. Para hacer esto, dirígete a la carpeta del proyecto usando tu terminal y ejecuta el siguiente comando:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Dirigete a la carpeta del proyecto
+`cd Metrix/metrixapp`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Instala las dependencias del proyecto
+`npm install`
 
-### `npm run eject`
+## Paso 3: Ejecutar el proyecto
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Este comando iniciará la aplicación y abrirá una ventana del navegador en la que podrás ver el proyecto
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`npm start`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Listo! Ahora sabes como instalar nuestro proyecto de React desde GitHub para probarlo en tu maquina 😄
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Pasos adicionales (No necesarios para el funcionamiento del proyecto)
 
-## Learn More
+## Paso 4: Modificar el proyecto
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Si deseas hacer cambios en el proyecto, asegúrate de hacerlo en una nueva rama en lugar de la rama principal. Para crear una nueva rama, ejecuta el siguiente comando en tu terminal:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+`git checkout -b nombre-rama`
 
-### Code Splitting
+Asegúrate de reemplazar `nombre-rama` con el nombre que desees darle a tu nueva rama.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Paso 5: Realizar un pull request
 
-### Analyzing the Bundle Size
+Una vez que hayas realizado los cambios en tu nueva rama, debes crear un pull request para fusionar los cambios en la rama principal. Para hacer esto, ve a la página de GitHub del repositorio y haz clic en el botón "New pull request".
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Asegúrate de describir los cambios que realizaste y de darle un título y una descripción adecuados al pull request.
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Copyright Metrix ©
