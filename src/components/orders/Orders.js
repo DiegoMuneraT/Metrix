@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Grid, Box, Typography } from "@mui/material";
+import { Button, Grid, Box, Typography, Modal } from "@mui/material";
 import { getDatabase, ref, onValue } from "firebase/database";
 import {
   changeDeliveryState,
@@ -79,12 +79,88 @@ const Order = ({ id, start, end, handleTake, taken }) => {
 //   );
 // };
 
+//Componente que crea el modal
+const ValidationModal = ({
+  open,
+  handleClose,
+  locker,
+  idValidation,
+  takeOut,
+}) => {
+  return (
+    <>
+      <Modal
+        open={open}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "28%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 343,
+            bgcolor: "background.paper",
+            border: "0.3px solid rgba(0, 0, 0, 0.5)",
+            borderRadius: "5px",
+            boxShadow: 24,
+            p: 4,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h6"
+            sx={{ fontWeight: "600", color: "#8BC34A", mt: 1.3, mb: 1 }}
+            align="center"
+          >
+            AGUACATALA LOCKER {locker}
+          </Typography>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h6"
+            sx={{ fontWeight: "600", mt: 0, mb: 0 }}
+            align="center"
+          >
+            ID VALIDACIÓN
+          </Typography>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h6"
+            sx={{ fontWeight: "400", mt: 0, mb: 2.4 }}
+            align="center"
+          >
+            {idValidation}
+          </Typography>
+          <Button
+            variant="contained"
+            sx={{ margin: "auto" }}
+            onClick={handleClose}
+          >
+            {takeOut ? "RETIRAR DEL LOCKER" : "DEJAR EN LOKER"}
+          </Button>
+        </Box>
+      </Modal>
+    </>
+  );
+};
+
 // componente que crea todas las ordenes
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   // const [cancel, setCancel] = useState(false);
   const { user } = UserAuth();
   const idConnector = user.uid;
+
+  const [open, setOpen] = useState(false);
+  const [takeOut, setTakeOut] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   //leer todos los pedidos de la base de datos
   useEffect(() => {
@@ -103,10 +179,14 @@ const Orders = () => {
   const handleTake = (id) => {
     const taken = existsTaken();
     if (!taken) {
+      setTakeOut(true);
       takeDelivery(id, idConnector);
       changeDeliveryState(id, "En Curso");
+      handleOpen();
     } else if (taken === id) {
+      setTakeOut(false);
       changeDeliveryState(id, "Entregado");
+      handleOpen();
       console.log("Pedido entregado");
     } else {
       console.log("Un pedido ya ha sido tomado.");
@@ -267,6 +347,13 @@ const Orders = () => {
           {orderConstructor()}
         </Box>
       </Box>
+      <ValidationModal
+        open={open}
+        handleClose={handleClose}
+        locker={5}
+        idValidation={35555}
+        takeOut={takeOut}
+      />
     </>
   );
 };

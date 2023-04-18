@@ -35,6 +35,8 @@ export function readUserData(uid) {
   return userData;
 }
 
+// Deliveries
+
 export function readDeliveryData(deliveryId) {
   const getInfo = ref(db, "deliveries/" + deliveryId);
   let deliveryData = false;
@@ -72,3 +74,35 @@ export function changeDeliveryState(id, state) {
 export function takeDelivery(id, idConnector) {
   set(ref(db, "deliveries/" + id + "/idConnector"), idConnector);
 }
+
+// Lockers
+
+export function readLockersData(station) {
+  const getInfo = ref(db, "stations/" + station);
+  let lockerData = false;
+  onValue(getInfo, (snapshot) => {
+    if (snapshot.exists()) {
+      lockerData = snapshot.val();
+    } else {
+      console.log("No data available");
+    }
+  });
+  return lockerData;
+}
+
+export function changeLockerState(station, id, state, validation) {
+  set(ref(db, "stations/" + station + "/" + id), {
+    id,
+    state,
+    validation,
+  });
+}
+
+// Function usada para crear todos los lockers.
+// export function setStations(station, i) {
+//   set(ref(db, "stations/" + station + "/" + i), {
+//     id: i,
+//     state: "Libre",
+//     validation: 0,
+//   });
+// }
