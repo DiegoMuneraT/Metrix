@@ -68,3 +68,7 @@ export function writeDeliveryData(delivery) {
 export function changeDeliveryState(id, state) {
   set(ref(db, "deliveries/" + id + "/state"), state);
 }
+
+export function takeDelivery(id, idConnector) {
+  set(ref(db, "deliveries/" + id + "/idConnector"), idConnector);
+}

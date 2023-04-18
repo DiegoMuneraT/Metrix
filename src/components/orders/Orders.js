@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Button, Grid, Box, Typography } from "@mui/material";
 import { getDatabase, ref, onValue } from "firebase/database";
-import { changeDeliveryState } from "services/database/firebaseCalls";
+import {
+  changeDeliveryState,
+  takeDelivery,
+} from "services/database/firebaseCalls";
 import { ReactComponent as OptionsSvg } from "media/images/options.svg";
+import { UserAuth } from "context/authContext";
 
 //Componente que crea una orden con su respectivo id, start y end.
 const Order = ({ id, start, end, handleTake, taken }) => {
@@ -39,7 +43,7 @@ const Order = ({ id, start, end, handleTake, taken }) => {
           onClick={() => handleTake(id)}
         >
           {" "}
-          {taken === id ? "Entregar" : "Tomar"}{" "}
+          {taken ? "Entregar" : "Tomar"}{" "}
         </Button>
       </Grid>
     </Grid>
@@ -78,8 +82,9 @@ const Order = ({ id, start, end, handleTake, taken }) => {
 // componente que crea todas las ordenes
 const Orders = () => {
   const [orders, setOrders] = useState([]);
-  const [taken, setTaken] = useState(null);
   // const [cancel, setCancel] = useState(false);
+  const { user } = UserAuth();
+  const idConnector = user.uid;
 
   //leer todos los pedidos de la base de datos
   useEffect(() => {
@@ -96,11 +101,11 @@ const Orders = () => {
 
   // función que cambia el valor de taken al id de la orden y actualiza el estado
   const handleTake = (id) => {
+    const taken = existsTaken();
     if (!taken) {
-      setTaken(id);
+      takeDelivery(id, idConnector);
       changeDeliveryState(id, "En Curso");
     } else if (taken === id) {
-      setTaken(null);
       changeDeliveryState(id, "Entregado");
       console.log("Pedido entregado");
     } else {
@@ -109,14 +114,14 @@ const Orders = () => {
   };
 
   // Functión que llama al componente Order para crear todas las ordenes
-  const orderConstructor = (orders) => {
+  const orderConstructor = () => {
     const keys = Object.keys(orders);
     if (keys.length === 0) {
       return <Typography align="center"> Cargando...</Typography>;
     }
     const orderElements = [];
     keys.forEach((key) => {
-      if (key !== taken && orders[key].state === "Libre") {
+      if (orders[key].state === "Libre") {
         orderElements.push(
           <Order
             key={key}
@@ -124,7 +129,7 @@ const Orders = () => {
             start={orders[key].start}
             end={orders[key].end}
             handleTake={handleTake}
-            taken={taken}
+            taken={false}
           />
         );
       }
@@ -139,16 +144,52 @@ const Orders = () => {
   };
 
   // Función que crea el pedido ya tomado
-  const takenOrder = (id) => {
-    return (
-      <Order
-        id={id}
-        start={orders[id].start}
-        end={orders[id].end}
-        handleTake={handleTake}
-        taken={taken}
-      />
-    );
+  const takenOrder = () => {
+    const keys = Object.keys(orders);
+    if (keys.length === 0) {
+      return <Typography align="center"> Cargando...</Typography>;
+    }
+    let takenOrder = [];
+    keys.forEach((key) => {
+      if (
+        orders[key].state === "En Curso" &&
+        orders[key].idConnector === idConnector
+      ) {
+        takenOrder.push(
+          <Order
+            key={key}
+            id={key}
+            start={orders[key].start}
+            end={orders[key].end}
+            handleTake={handleTake}
+            taken={true}
+          />
+        );
+        return;
+      }
+    });
+
+    if (takenOrder.length === 0) {
+      return (
+        <Typography align="center"> No has tomado ningún pedido.</Typography>
+      );
+    }
+    return takenOrder;
+  };
+
+  const existsTaken = () => {
+    const keys = Object.keys(orders);
+    let exists = false;
+    keys.forEach((key) => {
+      if (
+        orders[key].state === "En Curso" &&
+        orders[key].idConnector === idConnector
+      ) {
+        exists = key;
+        return;
+      }
+    });
+    return exists;
   };
 
   // const handleCancel = () => {
@@ -176,35 +217,37 @@ const Orders = () => {
       >
         <Box
           sx={{
+            mt: 4.2,
             display: "flex",
-            justifyContent: "center",
-            mb: 2.3,
+            flexDirection: "column",
           }}
         >
-          <Typography
-            component="h6"
-            variant="h6"
+          <Box
             sx={{
-              fontWeight: "600",
-              color: "#8BC34A",
-              lineHeight: "1.25rem",
-              margin: "auto",
-              mt: 0.3,
-              mr: 10,
+              display: "flex",
+              justifyContent: "center",
+              mb: 0.48,
             }}
-            align="center"
           >
-            PEDIDO ACTIVO
-          </Typography>
-          <Box style={{ cursor: "pointer" }}>
-            <OptionsSvg />
+            <Typography
+              component="h6"
+              variant="h6"
+              sx={{
+                fontWeight: "600",
+                color: "#8BC34A",
+                lineHeight: "1.25rem",
+                margin: "auto",
+              }}
+              align="center"
+            >
+              PEDIDO ACTIVO
+            </Typography>
+            <Box style={{ cursor: "pointer" }}>
+              <OptionsSvg />
+            </Box>
           </Box>
+          {takenOrder()}
         </Box>
-        {taken ? (
-          takenOrder(taken)
-        ) : (
-          <Typography align="center">No hay pedido activo</Typography>
-        )}
         <Box
           sx={{
             mt: 4.2,
@@ -219,9 +262,9 @@ const Orders = () => {
             sx={{ fontWeight: "600", color: "#8BC34A", mt: 3.4, mb: 0.6 }}
             align="center"
           >
-            PEDIDOS LIBRES
+            PEDIDOS DISPONIBLES
           </Typography>
-          {orderConstructor(orders)}
+          {orderConstructor()}
         </Box>
       </Box>
     </>
