@@ -1,8 +1,7 @@
-
-
 import React, { useEffect, useState } from "react";
 import { Button, Grid, Box, Typography } from "@mui/material";
 import { getDatabase, ref, onValue } from "firebase/database";
+import { ReactComponent as OptionsSvg } from "media/images/options.svg";
 
 //Componente que crea una orden con su respectivo id, start y end.
 const State = ({ id, start, end, state }) => {
@@ -106,6 +105,7 @@ const States = () => {
           >
           TUS PEDIDOS
           </Typography>
+          <OptionsSvg />
         </Box>
           <Typography align="center">No hay pedido activo</Typography>
         <Box
