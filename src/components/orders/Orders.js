@@ -4,6 +4,7 @@ import { getDatabase, ref, onValue } from "firebase/database";
 import {
   changeDeliveryState,
   takeDelivery,
+  changeLockerState,
 } from "services/database/firebaseCalls";
 import { ReactComponent as OptionsSvg } from "media/images/options.svg";
 import { UserAuth } from "context/authContext";
@@ -86,6 +87,8 @@ const ValidationModal = ({
   locker,
   idValidation,
   takeOut,
+  station,
+  loaded,
 }) => {
   return (
     <>
@@ -114,10 +117,16 @@ const ValidationModal = ({
             id="modal-modal-title"
             variant="h6"
             component="h6"
-            sx={{ fontWeight: "600", color: "#8BC34A", mt: 1.3, mb: 1 }}
+            sx={{
+              fontWeight: "600",
+              color: "#8BC34A",
+              mt: 1.3,
+              mb: 1,
+              textTransform: "uppercase",
+            }}
             align="center"
           >
-            AGUACATALA LOCKER {locker}
+            {loaded ? station : "..."} LOCKER {loaded ? locker : "..."}
           </Typography>
           <Typography
             id="modal-modal-title"
@@ -135,15 +144,19 @@ const ValidationModal = ({
             sx={{ fontWeight: "400", mt: 0, mb: 2.4 }}
             align="center"
           >
-            {idValidation}
+            {loaded ? idValidation : "..."}
           </Typography>
-          <Button
-            variant="contained"
-            sx={{ margin: "auto" }}
-            onClick={handleClose}
-          >
-            {takeOut ? "RETIRAR DEL LOCKER" : "DEJAR EN LOKER"}
-          </Button>
+          {loaded ? (
+            <Button
+              variant="contained"
+              sx={{ margin: "auto" }}
+              onClick={handleClose}
+            >
+              {takeOut ? "RETIRAR DEL LOCKER" : "DEJAR EN LOKER"}
+            </Button>
+          ) : (
+            ""
+          )}
         </Box>
       </Modal>
     </>
@@ -153,14 +166,14 @@ const ValidationModal = ({
 // componente que crea todas las ordenes
 const Orders = () => {
   const [orders, setOrders] = useState([]);
+  const [lockers, setLockers] = useState([]);
+  const [locker, setLocker] = useState([]);
   // const [cancel, setCancel] = useState(false);
   const { user } = UserAuth();
   const idConnector = user.uid;
 
   const [open, setOpen] = useState(false);
   const [takeOut, setTakeOut] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   //leer todos los pedidos de la base de datos
   useEffect(() => {
@@ -173,7 +186,19 @@ const Orders = () => {
         setOrders([]);
       }
     });
+
+    const getLockers = ref(db, "stations/");
+    onValue(getLockers, (snapshot) => {
+      if (snapshot.exists()) {
+        setLockers(snapshot.val());
+      } else {
+        setLockers([]);
+      }
+    });
   }, []);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   // función que cambia el valor de taken al id de la orden y actualiza el estado
   const handleTake = (id) => {
@@ -185,6 +210,7 @@ const Orders = () => {
       handleOpen();
     } else if (taken === id) {
       setTakeOut(false);
+      chooseLocker(id);
       changeDeliveryState(id, "Entregado");
       handleOpen();
       console.log("Pedido entregado");
@@ -272,6 +298,19 @@ const Orders = () => {
     return exists;
   };
 
+  const chooseLocker = (id) => {
+    const stationLockers = lockers[orders[id].end];
+    let freeLocker = 0;
+    for (let i = 1; i < stationLockers.length + 1; i++) {
+      if (stationLockers[i].state === "Libre") {
+        freeLocker = i;
+        break;
+      }
+    }
+    changeLockerState(orders[id].end, freeLocker, "Ocupado", id);
+    setLocker({ station: orders[id].end, id: freeLocker, validation: id });
+  };
+
   // const handleCancel = () => {
   //   if (!taken) {
   //     console.log("No hay pedidos para cancelar");
@@ -350,9 +389,11 @@ const Orders = () => {
       <ValidationModal
         open={open}
         handleClose={handleClose}
-        locker={5}
-        idValidation={35555}
+        locker={locker.id}
+        idValidation={locker.validation}
         takeOut={takeOut}
+        station={locker.station}
+        loaded={locker}
       />
     </>
   );

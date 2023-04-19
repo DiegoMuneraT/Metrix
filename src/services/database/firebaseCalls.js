@@ -77,7 +77,7 @@ export function takeDelivery(id, idConnector) {
 
 // Lockers
 
-export function readLockersData(station) {
+export function readLockers(station) {
   const getInfo = ref(db, "stations/" + station);
   let lockerData = false;
   onValue(getInfo, (snapshot) => {
