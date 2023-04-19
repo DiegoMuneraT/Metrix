@@ -205,6 +205,7 @@ const Orders = () => {
     const taken = existsTaken();
     if (!taken) {
       setTakeOut(true);
+      findLocker(id);
       takeDelivery(id, idConnector);
       changeDeliveryState(id, "En Curso");
       handleOpen();
@@ -298,6 +299,19 @@ const Orders = () => {
     return exists;
   };
 
+  const findLocker = (id) => {
+    const stationLockers = lockers[orders[id].start];
+    let takenLocker = 0;
+    for (let i = 1; i < stationLockers.length + 1; i++) {
+      if (stationLockers[i].validation === id) {
+        takenLocker = i;
+        break;
+      }
+    }
+    setLocker({ station: orders[id].start, id: takenLocker, validation: id });
+    changeLockerState(orders[id].start, takenLocker, "Libre", 0);
+  };
+
   const chooseLocker = (id) => {
     const stationLockers = lockers[orders[id].end];
     let freeLocker = 0;
@@ -307,8 +321,8 @@ const Orders = () => {
         break;
       }
     }
-    changeLockerState(orders[id].end, freeLocker, "Ocupado", id);
     setLocker({ station: orders[id].end, id: freeLocker, validation: id });
+    changeLockerState(orders[id].end, freeLocker, "Ocupado", id);
   };
 
   // const handleCancel = () => {
