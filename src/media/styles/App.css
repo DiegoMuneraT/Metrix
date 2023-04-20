@@ -6,6 +6,9 @@
   height: 50%;
   pointer-events: none;
   width: 50%;
+  min-width: 50%;
+  min-height: 50%;
+
 }
 
 .App-header {
