@@ -212,7 +212,7 @@ const Orders = () => {
     } else if (taken === id) {
       setTakeOut(false);
       chooseLocker(id);
-      changeDeliveryState(id, "Entregado");
+      changeDeliveryState(id, "En Locker");
       handleOpen();
       console.log("Pedido entregado");
     } else {
