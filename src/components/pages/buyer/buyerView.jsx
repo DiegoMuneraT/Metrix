@@ -4,7 +4,6 @@ import React from "react";
 import {
   CssBaseline,
   Box,
-  Typography,
   Container,
   ThemeProvider,
 } from "@mui/material";
@@ -13,6 +12,7 @@ import {
 import theme from "components/theme/getTheme";
 import State from "components/state/State";
 import Copyright from "components/copyright/Copyright";
+import TypeUser from "components/typeUser/TypeUser";
 
 function buyer() {
   return (
@@ -31,6 +31,7 @@ function buyer() {
           <State />
         </Box>
         <Copyright sx={{ mt: 5 }} />
+        <TypeUser />
       </Container>
     </ThemeProvider>
   );
