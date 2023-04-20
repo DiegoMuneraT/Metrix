@@ -1,5 +1,6 @@
 // react
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getDatabase, ref, onValue } from "firebase/database";
 // @mui/material
 import {
   CssBaseline,
@@ -24,6 +25,19 @@ function Seller() {
   const [productType, setProductType] = useState("");
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
+  const [lockers, setLockers] = useState([]);
+
+  useEffect(() => {
+    const db = getDatabase();
+    const getLockers = ref(db, "stations/");
+    onValue(getLockers, (snapshot) => {
+      if (snapshot.exists()) {
+        setLockers(snapshot.val());
+      } else {
+        setLockers([]);
+      }
+    });
+  }, []);
 
   const handleChange = (event) => {
     if (event.target.name === "productType") {
@@ -54,7 +68,7 @@ function Seller() {
           <Box
             component="form"
             autoComplete="off"
-            onSubmit={SetOrder}
+            onSubmit={(event) => SetOrder(event, lockers)}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
@@ -114,10 +128,13 @@ function Seller() {
                         name="start"
                         required
                       >
-                        <MenuItem value={"Aguacatala"}>Aguacatala</MenuItem>
-                        <MenuItem value={"San Antonio"}>San Antonio</MenuItem>
-                        <MenuItem value={"Niquia"}>Niquia</MenuItem>
+                        <MenuItem value={"Bello"}>Bello</MenuItem>
                         <MenuItem value={"Caribe"}>Caribe</MenuItem>
+                        <MenuItem value={"Envigado"}>Envigado</MenuItem>
+                        <MenuItem value={"Hospital"}>Hospital</MenuItem>
+                        <MenuItem value={"Itagui"}>Itagüi</MenuItem>
+                        <MenuItem value={"Poblado"}>Poblado</MenuItem>
+                        <MenuItem value={"San Antonio"}>San Antonio</MenuItem>
                       </Select>
                     </ThemeProvider>
                   </FormControl>
@@ -145,10 +162,13 @@ function Seller() {
                         name="end"
                         required
                       >
-                        <MenuItem value={"San Antonio"}>San Antonio</MenuItem>
-                        <MenuItem value={"Niquia"}>Niquia</MenuItem>
-                        <MenuItem value={"Aguacatala"}>Aguacatala</MenuItem>
+                        <MenuItem value={"Bello"}>Bello</MenuItem>
                         <MenuItem value={"Caribe"}>Caribe</MenuItem>
+                        <MenuItem value={"Envigado"}>Envigado</MenuItem>
+                        <MenuItem value={"Hospital"}>Hospital</MenuItem>
+                        <MenuItem value={"Itagui"}>Itagüi</MenuItem>
+                        <MenuItem value={"Poblado"}>Poblado</MenuItem>
+                        <MenuItem value={"San Antonio"}>San Antonio</MenuItem>
                       </Select>
                     </ThemeProvider>
                   </FormControl>

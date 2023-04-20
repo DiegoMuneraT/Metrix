@@ -1,7 +1,7 @@
 import { writeDeliveryData } from "services/database/firebaseCalls";
-
-const SetOrder = (event) => {
+const SetOrder = (event, lockers) => {
   event.preventDefault();
+
   const data = new FormData(event.currentTarget);
   const delivery = {
     idBuyer: data.get("idBuyer"),
@@ -13,7 +13,16 @@ const SetOrder = (event) => {
     price: data.get("price"),
   };
 
-  writeDeliveryData(delivery);
+  const stationLockers = lockers[delivery.start];
+
+  let freeLocker = 0;
+  for (let i = 1; i < 41; i++) {
+    if (stationLockers[i].state === "Libre") {
+      freeLocker = i;
+      break;
+    }
+  }
+  writeDeliveryData(delivery, freeLocker);
 };
 
 export default SetOrder;
