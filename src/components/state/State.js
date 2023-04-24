@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Button, Grid, Box, Typography, Modal } from "@mui/material";
 import { getDatabase, ref, onValue } from "firebase/database";
 import {changeDeliveryState, takeDelivery, changeLockerState,} from "services/database/firebaseCalls";
-import { ReactComponent as OptionsSvg } from "media/images/options.svg";
 import { UserAuth } from "context/authContext";
 
 
@@ -120,8 +119,7 @@ const States = () => {
       let takenOrder = [];
       keys.forEach((key) => {
         if (
-          orders[key].state === "En Curso" &&
-          orders[key].idConnector === idConnector
+          orders[key].state === "En Curso" || orders[key].state === "En Locker"
         ) {
           takenOrder.push(
             <State
@@ -163,6 +161,9 @@ const States = () => {
       chooseLocker(id);
       changeDeliveryState(id, "Entregado");
       handleOpen();
+      console.log("Pedido entregado");
+    } else {
+      console.log("Un pedido ya ha sido tomado.");
     }
   };
 
@@ -173,8 +174,7 @@ const States = () => {
     let exists = false;
     keys.forEach((key) => {
       if (
-        orders[key].state === "En Curso" &&
-        orders[key].idConnector === idConnector
+        orders[key].state === "En Locker" 
       ) {
         exists = key;
         return;
@@ -273,7 +273,7 @@ const States = () => {
               sx={{ margin: "auto" }}
               onClick={handleClose}
             >
-              RETIRAR DEL LOCKER
+            {takeOut ? "RETIRAR DEL LOCKER" : "RETIRAR DE LOCKER"}
             </Button>
           ) : (
             ""
