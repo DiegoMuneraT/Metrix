@@ -3,7 +3,7 @@ import { Navigate, useRoutes } from "react-router-dom";
 import Register from "components/pages/usrSignup/signupView";
 import auth_login from "components/pages/usrLogin/loginView";
 import Connector from "components/pages/connector/connectorView";
-import Seller from "components/pages/seller/sellerView";
+import Seller from "components/pages/seller/postProduct";
 import Buyer from "components/pages/buyer/buyerView";
 import ErrorPage from "components/pages/error/ErrorPage";
 

@@ -7,7 +7,7 @@ const auth_login = (event) => {
     signInWithEmailAndPassword(auth, data.get("email"), data.get("password"))
         .then((userCredential) => {
             const user = userCredential.user;
-            console.log('Sesion iniciada', user);
+            console.log('Sesion iniciada', user.displayName);
             window.location.href = '/account'
         })
         .catch((error) => {

@@ -19,24 +19,25 @@ const auth_signin = (event) => {
   createUserWithEmailAndPassword(auth, data.get("email"), data.get("password"))
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(user, "Registrado");
-      console.log(user.uid);
+      console.log("Registrado en Auth");
       formUser.uid = user.uid;
-      // console.log(userData);
       if (formUser.uid) {
         writeUserData(formUser);
+        console.log('Registrado en RealTime')
       } else {
         console.log("paso algo");
       }
-      window.location.href = "/account";
+      sleep(1000).then(() => {window.location.href = "/account";})
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(`Algo paso ${errorCode}`, errorMessage);
     });
-
-  console.log(formUser);
 };
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export default auth_signin;

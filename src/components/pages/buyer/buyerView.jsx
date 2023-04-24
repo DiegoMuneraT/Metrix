@@ -27,7 +27,6 @@ function buyer() {
             alignItems: "center",
           }}
         >
-          
           <State />
         </Box>
         <Copyright sx={{ mt: 5 }} />

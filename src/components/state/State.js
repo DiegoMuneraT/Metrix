@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Grid, Box, Typography, Modal } from "@mui/material";
 import { getDatabase, ref, onValue } from "firebase/database";
 import {changeDeliveryState, takeDelivery, changeLockerState,} from "services/database/firebaseCalls";
-import { ReactComponent as OptionsSvg } from "media/images/options.svg";
+//import { ReactComponent as OptionsSvg } from "media/images/options.svg";
 import { UserAuth } from "context/authContext";
 
 

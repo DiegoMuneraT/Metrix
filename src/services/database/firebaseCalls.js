@@ -1,6 +1,7 @@
-import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getDatabase, ref, set, onValue, remove } from "firebase/database";
 
 const db = getDatabase();
+
 
 export function writeUserData({
   uid,
@@ -36,6 +37,10 @@ export function readUserData(uid) {
 }
 
 // Deliveries
+
+export function deleteDelivery(deliveryId) {
+  remove(ref(db, 'deliveries/' + deliveryId));
+}
 
 export function readDeliveryData(deliveryId) {
   const getInfo = ref(db, "deliveries/" + deliveryId);
