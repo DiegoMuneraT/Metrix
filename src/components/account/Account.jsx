@@ -45,16 +45,7 @@ const Account = () => {
                         <Typography
                             component="h6"
                             variant="h6"
-                            sx={{ fontWeight: "500", color: "#ffff", mt: 3.4, mb: 0.6 }}
-                            align="center"
-                        >
-                            ID: {user.uid}
-                        </Typography>
-
-                        <Typography
-                            component="h6"
-                            variant="h6"
-                            sx={{ fontWeight: "500", color: "#ffff", mt: 3.4, mb: 0.6 }}
+                            sx={{ fontWeight: "500", color: "#8BC34A", mt: 3.4, mb: 0.6 }}
                             align="center"
                         >
                             Usuario: {user && user.email} 

@@ -16,6 +16,7 @@ import ErrorPage from "components/pages/error/ErrorPage";
 import Connector from "components/pages/connector/connectorView";
 import Seller from "components/pages/seller/sellerView";
 import Buyer from "components/pages/buyer/buyerView";
+import Post from 'components/pages/seller/postProduct';
 
 function App() {
   return (
@@ -45,6 +46,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Seller/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/account/seller/post'
+          element={
+            <ProtectedRoute>
+              <Post/>
             </ProtectedRoute>
           }
         />
