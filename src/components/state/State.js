@@ -201,13 +201,13 @@ const States = () => {
     const stationLockers = lockers[orders[id].end];
     let freeLocker = 0;
     for (let i = 1; i < stationLockers.length + 1; i++) {
-      if (stationLockers[i].state === "Libre") {
+      if (stationLockers[i].validation === id) {
         freeLocker = i;
         break;
       }
     }
     setLocker({ station: orders[id].end, id: freeLocker, validation: id });
-    changeLockerState(orders[id].end, freeLocker, "Ocupado", id);
+    changeLockerState(orders[id].end, freeLocker, "Libre", 0);
   };
 
 
