@@ -71,7 +71,7 @@ const Account = () => {
                             sx={{ fontWeight: "500", color: "#8BC34A", mt: 3.4, mb: 0.6 }}
                             align="center"
                         >
-                            Usuario {"/"}
+                            Usuario {user && user.email}
                         </Typography>
                         
                         <Typography
