@@ -15,18 +15,27 @@ import {
   MenuItem,
   Grid,
   Button,
+  Modal,
 } from "@mui/material";
 // components
 import theme from "components/theme/getTheme";
 import Copyright from "components/copyright/Copyright";
 import SetOrder from "components/pages/seller/SetOrder";
 import { Toaster, toast } from "sonner";
+import Stations from "components/stations/stations";
 
 function Seller() {
   const [productType, setProductType] = useState("");
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   const [lockers, setLockers] = useState([]);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    window.location.href = '/account/seller';
+  }
 
   useEffect(() => {
     const db = getDatabase();
@@ -52,13 +61,7 @@ function Seller() {
 
   const returnSeller = () => {
     toast.success('Pedido creado!')
-    sleep(1000).then(() => {
-      window.location.href = '/account/seller';
-    })
-  }
-
-  function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    handleOpen();
   }
 
   return (
@@ -132,24 +135,7 @@ function Seller() {
                       Estación inicio
                     </InputLabel>
                     <ThemeProvider theme={theme}>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="start"
-                        value={start}
-                        onChange={handleChange}
-                        name="start"
-                        required
-                      >
-                        { /** Cambio */}
-                        <MenuItem value={"Bello"}>Bello</MenuItem>
-                        <MenuItem value={"Caribe"}>Caribe</MenuItem>
-                        <MenuItem value={"Envigado"}>Envigado</MenuItem>
-                        <MenuItem value={"Hospital"}>Hospital</MenuItem>
-                        <MenuItem value={"Itagui"}>Itagüi</MenuItem>
-                        <MenuItem value={"Poblado"}>Poblado</MenuItem>
-                        <MenuItem value={"San Antonio"}>San Antonio</MenuItem>
-                      </Select>
+                      <Stations value={start} handleChange={handleChange} popStation={end} label={'start'}/>
                     </ThemeProvider>
                   </FormControl>
                 </Box>
@@ -167,24 +153,7 @@ function Seller() {
                       Estación destino
                     </InputLabel>
                     <ThemeProvider theme={theme}>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="end"
-                        value={end}
-                        onChange={handleChange}
-                        name="end"
-                        required
-                      >
-                        { /** Cambio */}
-                        <MenuItem value={"Bello"}>Bello</MenuItem>
-                        <MenuItem value={"Caribe"}>Caribe</MenuItem>
-                        <MenuItem value={"Envigado"}>Envigado</MenuItem>
-                        <MenuItem value={"Hospital"}>Hospital</MenuItem>
-                        <MenuItem value={"Itagui"}>Itagüi</MenuItem>
-                        <MenuItem value={"Poblado"}>Poblado</MenuItem>
-                        <MenuItem value={"San Antonio"}>San Antonio</MenuItem>
-                      </Select>
+                      <Stations value={end} handleChange={handleChange} popStation={start} label={'end'}/>
                     </ThemeProvider>
                   </FormControl>
                 </Box>
@@ -212,10 +181,95 @@ function Seller() {
             </Button>
           </Box>
         </Box>
+
+        <ValidationModal
+          open={open}
+          handleClose={handleClose}
+          locker={'2'}
+          idValidation={'3423'}
+          station={start}
+          loaded={true}
+        />
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );
 }
+
+const ValidationModal = ({open, handleClose, locker, idValidation, station, loaded, }) => {
+  return (
+    <>
+      <Modal
+        open={open}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "28%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 343,
+            bgcolor: "background.paper",
+            border: "0.3px solid rgba(0, 0, 0, 0.5)",
+            borderRadius: "5px",
+            boxShadow: 24,
+            p: 4,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h6"
+            sx={{
+              fontWeight: "600",
+              color: "#8BC34A",
+              mt: 1.3,
+              mb: 1,
+              textTransform: "uppercase",
+            }}
+            align="center"
+          >
+            {loaded ? station : "..."} LOCKER {loaded ? locker : "..."}
+          </Typography>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h6"
+            sx={{ fontWeight: "600", mt: 0, mb: 0 }}
+            align="center"
+          >
+            ID VALIDACIÓN
+          </Typography>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h6"
+            sx={{ fontWeight: "400", mt: 0, mb: 2.4 }}
+            align="center"
+          >
+            {loaded ? idValidation : "..."}
+          </Typography>
+          {loaded ? (
+            <Button
+              variant="contained"
+              sx={{ margin: "auto" }}
+              onClick={handleClose}
+            >
+            {station ? "DEJAR EN EL LOCKER" : "DEJAR EN EL LOCKER"}
+            </Button>
+          ) : (
+            ""
+          )}
+        </Box>
+      </Modal>
+    </>
+  );
+};
+
+
 
 export default Seller;

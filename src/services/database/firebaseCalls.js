@@ -60,11 +60,13 @@ export function writeDeliveryData(delivery, freeLocker) {
   //Verifies if there is a delivery with the given id
   //No funciona muy bien
   let deliveryExists = readDeliveryData(deliveryId);
+
   while (deliveryExists) {
     console.log("Loop");
     deliveryId = Math.floor(Math.random() * 99999);
     deliveryExists = readDeliveryData(deliveryId);
   }
+
   changeLockerState(delivery.start, freeLocker, "Ocupado", `${deliveryId}`);
   const deliveriesInDB = ref(db, `deliveries/${deliveryId}`);
   set(deliveriesInDB, {

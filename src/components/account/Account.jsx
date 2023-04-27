@@ -15,6 +15,28 @@ import {
 import { UserAuth } from 'context/authContext';
 import theme from 'components/theme/getTheme';
 import Copyright from 'components/copyright/Copyright';
+import { Navigate } from 'react-router-dom';
+import { readUserData } from 'services/database/firebaseCalls';
+
+const manageUsers = (uid) => {
+    const userData = readUserData(uid);
+    console.log(userData);
+    try {
+        switch (userData.userType) {
+            case 'conector':
+                console.log('Conector en linea')
+                //<Navigate to='/account/connector'/>;
+            case 'vendedor':
+                console.log('Vendedor en linea')
+                //<Navigate to='/account/seller'/>;
+            case 'receptor':
+                console.log('Comprador en linea')
+                //<Navigate to='/account/buyer'/>;
+        };
+    } catch (error) {
+        console.log(error)   
+    }
+}
 
 const Account = () => {
     const { user, logout } = UserAuth();
@@ -35,6 +57,7 @@ const Account = () => {
             <ThemeProvider theme={theme}>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
+                    {manageUsers(user && user.uid)}
                     <Box
                         sx={{
                             marginTop: 8,
@@ -48,7 +71,7 @@ const Account = () => {
                             sx={{ fontWeight: "500", color: "#8BC34A", mt: 3.4, mb: 0.6 }}
                             align="center"
                         >
-                            Usuario: {user && user.email} 
+                            Usuario {"/"}
                         </Typography>
                         
                         <Typography

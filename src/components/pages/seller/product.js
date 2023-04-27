@@ -70,7 +70,7 @@ const Order = ({ id, start, end, state }) => {
             textAlign: "right",
           }}
         >
-          {ButtonState(id, state)}
+          {ButtonState(id, state, start)}
         </Grid>
       </Grid>
     );

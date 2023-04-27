@@ -6,7 +6,7 @@ import {
   Box,
   Container,
   ThemeProvider,
-  Typography
+  Modal,
 } from "@mui/material";
 // components
 import theme from "components/theme/getTheme";

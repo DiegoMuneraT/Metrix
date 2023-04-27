@@ -168,8 +168,6 @@ const States = () => {
     }
   };
 
-
-
   const existsTaken = () => {
     const keys = Object.keys(orders);
     let exists = false;
