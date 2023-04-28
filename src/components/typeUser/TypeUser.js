@@ -48,9 +48,10 @@ const User = ({ orders }) => {
 
   return (
     <Typography align="center">
-      Hay {typeUser()} usuarios registrados como Conector<br/>
-      Hay {typeUser()} usuarios registrados como Vendedor<br/>
-      Hay {typeUser()} usuarios registrados como Comprador
+      Hay {'1'} usuarios registrados como Conector<br/>
+      Hay {'2'} usuarios registrados como Vendedor<br/>
+      Hay {'3'} usuarios registrados como Comprador
+      {console.log(typeUser())}
     </Typography>
 
 
