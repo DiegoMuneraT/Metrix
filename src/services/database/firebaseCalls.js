@@ -1,7 +1,5 @@
-import { getDatabase, ref, set, onValue, remove } from "firebase/database";
-
+import { getDatabase, ref, set, onValue, remove, get } from "firebase/database";
 const db = getDatabase();
-
 
 export function writeUserData({
   uid,
@@ -23,23 +21,18 @@ export function writeUserData({
   });
 }
 
-export function readUserData(uid) {
+export async function readUserData(uid) {
   const getInfo = ref(db, "users/" + uid);
-  let userData;
-  onValue(getInfo, (snapshot) => {
-    if (snapshot.exists()) {
-      userData = snapshot.val();
-    } else {
-      console.log("No data available");
-    }
-  });
-  return userData;
+  let user = {};
+  const snapshot = await get(getInfo);
+  user = snapshot.val();
+  return user;
 }
 
 // Deliveries
 
 export function deleteDelivery(deliveryId) {
-  remove(ref(db, 'deliveries/' + deliveryId));
+  remove(ref(db, "deliveries/" + deliveryId));
 }
 
 export function readDeliveryData(deliveryId) {
@@ -104,6 +97,31 @@ export function changeLockerState(station, id, state, validation) {
     state,
     validation,
   });
+}
+
+export function readUserDataAndDeliveries(uid) {
+  let getInfo = ref(db, "users/" + uid);
+  let userDataAndDeliveries = { userData: {}, deliveries: {} };
+
+  onValue(getInfo, (snapshot) => {
+    if (snapshot.exists()) {
+      userDataAndDeliveries.userData = snapshot.val();
+    } else {
+      console.log("No data available");
+    }
+  });
+
+  getInfo = ref(db, "deliveries/");
+
+  onValue(getInfo, (snapshot) => {
+    if (snapshot.exists()) {
+      userDataAndDeliveries.deliveries = snapshot.val();
+    } else {
+      console.log("No data available");
+    }
+  });
+
+  return userDataAndDeliveries;
 }
 
 // Function usada para crear todos los lockers.
