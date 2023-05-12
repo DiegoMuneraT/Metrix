@@ -1,6 +1,6 @@
 // react
 import React, { useState, useEffect } from "react";
-// import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue } from "firebase/database";
 // @mui/material
 import {
   CssBaseline,
@@ -42,18 +42,18 @@ function Seller() {
   };
 
   useEffect(() => {
-    // const db = getDatabase();
-    // const getLockers = ref(db, "stations/");
-    // onValue(getLockers, (snapshot) => {
-    //   if (snapshot.exists()) {
-    //     setLockers(snapshot.val());
-    //   } else {
-    //     setLockers([]);
-    //   }
-    // });
-    (async () => {
-      setLockers(await readLockers());
-    })();
+    const db = getDatabase();
+    const getLockers = ref(db, "stations/");
+    onValue(getLockers, (snapshot) => {
+      if (snapshot.exists()) {
+        setLockers(snapshot.val());
+      } else {
+        setLockers([]);
+      }
+    });
+    // (async () => {
+    //   setLockers(await readLockers());
+    // })();
   }, []);
 
   useEffect(() => {

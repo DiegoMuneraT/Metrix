@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Grid, Box, Typography, Modal } from "@mui/material";
-// import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue } from "firebase/database";
 import {
   changeDeliveryState,
   takeDelivery,
@@ -180,29 +180,29 @@ const Orders = () => {
 
   //leer todos los pedidos de la base de datos
   useEffect(() => {
-    // const db = getDatabase();
-    // const getInfo = ref(db, "deliveries/");
-    // onValue(getInfo, (snapshot) => {
-    //   if (snapshot.exists()) {
-    //     setOrders(snapshot.val());
-    //   } else {
-    //     setOrders([]);
-    //   }
-    // });
+    const db = getDatabase();
+    const getInfo = ref(db, "deliveries/");
+    onValue(getInfo, (snapshot) => {
+      if (snapshot.exists()) {
+        setOrders(snapshot.val());
+      } else {
+        setOrders([]);
+      }
+    });
 
-    // const getLockers = ref(db, "stations/");
-    // onValue(getLockers, (snapshot) => {
-    //   if (snapshot.exists()) {
-    //     setLockers(snapshot.val());
-    //   } else {
-    //     setLockers([]);
-    //   }
-    // });
-    (async () => {
-      setOrders(await readDeliveries());
-      setLockers(await readLockers());
-    })();
-  }, [open]);
+    const getLockers = ref(db, "stations/");
+    onValue(getLockers, (snapshot) => {
+      if (snapshot.exists()) {
+        setLockers(snapshot.val());
+      } else {
+        setLockers([]);
+      }
+    });
+    // (async () => {
+    //   setOrders(await readDeliveries());
+    //   setLockers(await readLockers());
+    // })();
+  }, []);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
