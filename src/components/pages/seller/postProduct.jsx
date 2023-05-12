@@ -1,6 +1,6 @@
 // react
 import React, { useState, useEffect } from "react";
-import { getDatabase, ref, onValue } from "firebase/database";
+// import { getDatabase, ref, onValue } from "firebase/database";
 // @mui/material
 import {
   CssBaseline,
@@ -23,6 +23,8 @@ import Copyright from "components/copyright/Copyright";
 import SetOrder from "components/pages/seller/SetOrder";
 import { Toaster, toast } from "sonner";
 import Stations from "components/stations/stations";
+import { UserAuth } from "context/authContext";
+import { readLockers, readUserData } from "services/database/firebaseCalls";
 
 function Seller() {
   const [productType, setProductType] = useState("");
@@ -30,24 +32,35 @@ function Seller() {
   const [end, setEnd] = useState("");
   const [lockers, setLockers] = useState([]);
   const [open, setOpen] = useState(false);
+  const [userData, setUserData] = useState({});
+  const { user } = UserAuth();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    window.location.href = '/account/seller';
-  }
+    window.location.href = "/account/seller";
+  };
 
   useEffect(() => {
-    const db = getDatabase();
-    const getLockers = ref(db, "stations/");
-    onValue(getLockers, (snapshot) => {
-      if (snapshot.exists()) {
-        setLockers(snapshot.val());
-      } else {
-        setLockers([]);
-      }
-    });
+    // const db = getDatabase();
+    // const getLockers = ref(db, "stations/");
+    // onValue(getLockers, (snapshot) => {
+    //   if (snapshot.exists()) {
+    //     setLockers(snapshot.val());
+    //   } else {
+    //     setLockers([]);
+    //   }
+    // });
+    (async () => {
+      setLockers(await readLockers());
+    })();
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      setUserData(await readUserData(user.uid));
+    })();
+  }, [user.uid]);
 
   const handleChange = (event) => {
     if (event.target.name === "productType") {
@@ -60,15 +73,20 @@ function Seller() {
   };
 
   const returnSeller = () => {
-    toast.success('Pedido creado!')
-    handleOpen();
-  }
+    console.log(userData);
+    if (userData.tokens > 0) {
+      toast.success("Pedido creado!");
+      handleOpen();
+    } else {
+      toast.error("No tienes suficientes tokens");
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <Toaster richColors position="bottom-center"/>
+        <Toaster richColors position="bottom-center" />
         <Box
           sx={{
             marginTop: 8,
@@ -84,7 +102,7 @@ function Seller() {
           <Box
             component="form"
             autoComplete="off"
-            onSubmit={(event) => SetOrder(event, lockers)}
+            onSubmit={(event) => SetOrder(event, lockers, userData)}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
@@ -135,7 +153,12 @@ function Seller() {
                       Estación inicio
                     </InputLabel>
                     <ThemeProvider theme={theme}>
-                      <Stations value={start} handleChange={handleChange} popStation={end} label={'start'}/>
+                      <Stations
+                        value={start}
+                        handleChange={handleChange}
+                        popStation={end}
+                        label={"start"}
+                      />
                     </ThemeProvider>
                   </FormControl>
                 </Box>
@@ -153,7 +176,12 @@ function Seller() {
                       Estación destino
                     </InputLabel>
                     <ThemeProvider theme={theme}>
-                      <Stations value={end} handleChange={handleChange} popStation={start} label={'end'}/>
+                      <Stations
+                        value={end}
+                        handleChange={handleChange}
+                        popStation={start}
+                        label={"end"}
+                      />
                     </ThemeProvider>
                   </FormControl>
                 </Box>
@@ -185,8 +213,8 @@ function Seller() {
         <ValidationModal
           open={open}
           handleClose={handleClose}
-          locker={'2'}
-          idValidation={'3423'}
+          locker={"2"}
+          idValidation={"3423"}
           station={start}
           loaded={true}
         />
@@ -196,7 +224,14 @@ function Seller() {
   );
 }
 
-const ValidationModal = ({open, handleClose, locker, idValidation, station, loaded, }) => {
+const ValidationModal = ({
+  open,
+  handleClose,
+  locker,
+  idValidation,
+  station,
+  loaded,
+}) => {
   return (
     <>
       <Modal
@@ -259,7 +294,7 @@ const ValidationModal = ({open, handleClose, locker, idValidation, station, load
               sx={{ margin: "auto" }}
               onClick={handleClose}
             >
-            {station ? "DEJAR EN EL LOCKER" : "DEJAR EN EL LOCKER"}
+              {station ? "DEJAR EN EL LOCKER" : "DEJAR EN EL LOCKER"}
             </Button>
           ) : (
             ""
@@ -269,7 +304,5 @@ const ValidationModal = ({open, handleClose, locker, idValidation, station, load
     </>
   );
 };
-
-
 
 export default Seller;

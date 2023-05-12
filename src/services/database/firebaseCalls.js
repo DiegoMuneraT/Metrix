@@ -76,19 +76,18 @@ export function takeDelivery(id, idConnector) {
   set(ref(db, "deliveries/" + id + "/idConnector"), idConnector);
 }
 
+export async function readDeliveries() {
+  const getInfo = ref(db, "deliveries/");
+  const snapshot = await get(getInfo);
+  return snapshot.val();
+}
+
 // Lockers
 
-export function readLockers(station) {
-  const getInfo = ref(db, "stations/" + station);
-  let lockerData = false;
-  onValue(getInfo, (snapshot) => {
-    if (snapshot.exists()) {
-      lockerData = snapshot.val();
-    } else {
-      console.log("No data available");
-    }
-  });
-  return lockerData;
+export async function readLockers() {
+  const getInfo = ref(db, "stations/");
+  const snapshot = await get(getInfo);
+  return snapshot.val();
 }
 
 export function changeLockerState(station, id, state, validation) {
@@ -122,6 +121,27 @@ export function readUserDataAndDeliveries(uid) {
   });
 
   return userDataAndDeliveries;
+}
+
+export async function readTokens(uid) {
+  const getInfo = ref(db, "users/" + uid + "/tokens");
+  const snapshot = await get(getInfo);
+  return snapshot.val();
+}
+
+export function reduceTokens(uid, tokens) {
+  set(ref(db, "users/" + uid + "/tokens"), tokens - 1);
+}
+
+export function addTokens(uid, newTokens = 1) {
+  let currentTokens;
+  (async () => {
+    currentTokens = await readTokens(uid);
+    if (currentTokens !== undefined) {
+      set(ref(db, "users/" + uid + "/tokens"), currentTokens + newTokens);
+      return;
+    }
+  })();
 }
 
 // Function usada para crear todos los lockers.

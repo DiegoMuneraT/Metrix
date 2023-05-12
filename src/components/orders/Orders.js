@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Button, Grid, Box, Typography, Modal } from "@mui/material";
-import { getDatabase, ref, onValue } from "firebase/database";
+// import { getDatabase, ref, onValue } from "firebase/database";
 import {
   changeDeliveryState,
   takeDelivery,
   changeLockerState,
+  readDeliveries,
+  readLockers,
 } from "services/database/firebaseCalls";
 import { ReactComponent as OptionsSvg } from "media/images/options.svg";
 import { UserAuth } from "context/authContext";
+import { Toaster, toast } from "sonner";
 
 //Componente que crea una orden con su respectivo id, start y end.
 const Order = ({ id, start, end, handleTake, taken }) => {
@@ -177,25 +180,29 @@ const Orders = () => {
 
   //leer todos los pedidos de la base de datos
   useEffect(() => {
-    const db = getDatabase();
-    const getInfo = ref(db, "deliveries/");
-    onValue(getInfo, (snapshot) => {
-      if (snapshot.exists()) {
-        setOrders(snapshot.val());
-      } else {
-        setOrders([]);
-      }
-    });
+    // const db = getDatabase();
+    // const getInfo = ref(db, "deliveries/");
+    // onValue(getInfo, (snapshot) => {
+    //   if (snapshot.exists()) {
+    //     setOrders(snapshot.val());
+    //   } else {
+    //     setOrders([]);
+    //   }
+    // });
 
-    const getLockers = ref(db, "stations/");
-    onValue(getLockers, (snapshot) => {
-      if (snapshot.exists()) {
-        setLockers(snapshot.val());
-      } else {
-        setLockers([]);
-      }
-    });
-  }, []);
+    // const getLockers = ref(db, "stations/");
+    // onValue(getLockers, (snapshot) => {
+    //   if (snapshot.exists()) {
+    //     setLockers(snapshot.val());
+    //   } else {
+    //     setLockers([]);
+    //   }
+    // });
+    (async () => {
+      setOrders(await readDeliveries());
+      setLockers(await readLockers());
+    })();
+  }, [open]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -209,14 +216,15 @@ const Orders = () => {
       takeDelivery(id, idConnector);
       changeDeliveryState(id, "En Curso");
       handleOpen();
+      toast.success("Pedido Tomado!");
     } else if (taken === id) {
       setTakeOut(false);
       chooseLocker(id);
       changeDeliveryState(id, "En Locker");
       handleOpen();
-      console.log("Pedido entregado");
+      toast.success("Pedido entregado!");
     } else {
-      console.log("Un pedido ya ha sido tomado.");
+      toast.error("Ya tomaste un pedido!");
     }
   };
 
@@ -413,6 +421,7 @@ const Orders = () => {
         station={locker.station}
         loaded={locker}
       />
+      <Toaster richColors position="bottom-center" />
     </>
   );
 };
