@@ -5,11 +5,12 @@ import {
   changeDeliveryState,
   takeDelivery,
   changeLockerState,
-  readDeliveries,
-  readLockers,
+  // readDeliveries,
+  // readLockers,
 } from "services/database/firebaseCalls";
 import { ReactComponent as OptionsSvg } from "media/images/options.svg";
 import { UserAuth } from "context/authContext";
+import NavBar from "components/userNav/NavBar";
 import { Toaster, toast } from "sonner";
 
 //Componente que crea una orden con su respectivo id, start y end.
@@ -171,6 +172,7 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [lockers, setLockers] = useState([]);
   const [locker, setLocker] = useState([]);
+  const [userData, setUserData] = useState([]);
   // const [cancel, setCancel] = useState(false);
   const { user } = UserAuth();
   const idConnector = user.uid;
@@ -203,6 +205,18 @@ const Orders = () => {
     //   setLockers(await readLockers());
     // })();
   }, []);
+
+  useEffect(() => {
+    const db = getDatabase();
+    const getTokens = ref(db, "users/" + user.uid);
+    onValue(getTokens, (snapshot) => {
+      if (snapshot.exists()) {
+        setUserData(snapshot.val());
+      } else {
+        setUserData({});
+      }
+    });
+  }, [user.uid]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -351,9 +365,17 @@ const Orders = () => {
 
   return (
     <>
+      {userData !== null ? (
+        <NavBar
+          userType="vendedor"
+          userName={userData.name}
+          tokens={userData.tokens}
+        />
+      ) : (
+        <NavBar userType="vendedor" />
+      )}
       <Box
         sx={{
-          marginTop: 4,
           display: "flex",
           flexDirection: "column",
           width: 330,

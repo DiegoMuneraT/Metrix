@@ -24,7 +24,10 @@ import SetOrder from "components/pages/seller/SetOrder";
 import { Toaster, toast } from "sonner";
 import Stations from "components/stations/stations";
 import { UserAuth } from "context/authContext";
-import { readLockers, readUserData } from "services/database/firebaseCalls";
+import {
+  // readLockers,
+  readUserData,
+} from "services/database/firebaseCalls";
 
 function Seller() {
   const [productType, setProductType] = useState("");

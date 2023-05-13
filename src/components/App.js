@@ -1,73 +1,94 @@
-
 // Styled components
-import 'media/styles/App.css';
+import "media/styles/App.css";
 //React
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
 // Context
-import { AuthContextProvider } from 'context/authContext';
-import ProtectedRoute from './authListener/protectedRoute';
+import { AuthContextProvider } from "context/authContext";
+import ProtectedRoute from "./authListener/protectedRoute";
 // Components
-import Signin from 'components/pages/usrSignup/signupView';
-import Login from 'components/pages/usrLogin/loginView';
-import Account from './account/Account';
+import Signin from "components/pages/usrSignup/signupView";
+import Login from "components/pages/usrLogin/loginView";
+import Account from "./account/Account";
 import Home from "components/pages/home/homePage";
 import ErrorPage from "components/pages/error/ErrorPage";
 import Connector from "components/pages/connector/connectorView";
 import Seller from "components/pages/seller/sellerView";
 import Buyer from "components/pages/buyer/buyerView";
-import Post from 'components/pages/seller/postProduct';
+import Post from "components/pages/seller/postProduct";
+import SellerTokens from "components/pages/seller/SellerTokens";
+import ConnectorTokens from "components/pages/connector/ConnectorTokens";
 
 function App() {
   return (
     <AuthContextProvider>
       <Routes>
-        <Route path='/' element={<Home/>} errorElement={<ErrorPage/>} />
-        <Route path='/login' element={<Login/>} errorElement={<ErrorPage/>} />
-        <Route path='/register' element={<Signin/>} errorElement={<ErrorPage/>} />
+        <Route path="/" element={<Home />} errorElement={<ErrorPage />} />
+        <Route path="/login" element={<Login />} errorElement={<ErrorPage />} />
         <Route
-          path='/account'
+          path="/register"
+          element={<Signin />}
+          errorElement={<ErrorPage />}
+        />
+        <Route
+          path="/account"
           element={
             <ProtectedRoute>
-              <Account/>
+              <Account />
             </ProtectedRoute>
           }
         />
         <Route
-          path='/account/connector'
+          path="/account/connector"
           element={
             <ProtectedRoute>
-              <Connector/>
+              <Connector />
             </ProtectedRoute>
           }
         />
         <Route
-          path='/account/seller'
+          path="/account/connector/tokens"
           element={
             <ProtectedRoute>
-              <Seller/>
+              <ConnectorTokens />
             </ProtectedRoute>
           }
         />
         <Route
-          path='/account/seller/post'
+          path="/account/seller"
           element={
             <ProtectedRoute>
-              <Post/>
+              <Seller />
             </ProtectedRoute>
           }
         />
         <Route
-          path='/account/buyer'
+          path="/account/seller/post"
           element={
             <ProtectedRoute>
-              <Buyer/>
+              <Post />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/account/seller/tokens"
+          element={
+            <ProtectedRoute>
+              <SellerTokens />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/account/buyer"
+          element={
+            <ProtectedRoute>
+              <Buyer />
             </ProtectedRoute>
           }
         />
       </Routes>
     </AuthContextProvider>
-  )
+  );
 }
 
 export default App;
