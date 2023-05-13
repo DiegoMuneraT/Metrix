@@ -1,7 +1,5 @@
-import { getDatabase, ref, set, onValue, remove } from "firebase/database";
-
+import { getDatabase, ref, set, onValue, remove, get } from "firebase/database";
 const db = getDatabase();
-
 
 export function writeUserData({
   uid,
@@ -23,23 +21,18 @@ export function writeUserData({
   });
 }
 
-export function readUserData(uid) {
+export async function readUserData(uid) {
   const getInfo = ref(db, "users/" + uid);
-  let userData;
-  onValue(getInfo, (snapshot) => {
-    if (snapshot.exists()) {
-      userData = snapshot.val();
-    } else {
-      console.log("No data available");
-    }
-  });
-  return userData;
+  let user = {};
+  const snapshot = await get(getInfo);
+  user = snapshot.val();
+  return user;
 }
 
 // Deliveries
 
 export function deleteDelivery(deliveryId) {
-  remove(ref(db, 'deliveries/' + deliveryId));
+  remove(ref(db, "deliveries/" + deliveryId));
 }
 
 export function readDeliveryData(deliveryId) {
@@ -83,19 +76,18 @@ export function takeDelivery(id, idConnector) {
   set(ref(db, "deliveries/" + id + "/idConnector"), idConnector);
 }
 
+export async function readDeliveries() {
+  const getInfo = ref(db, "deliveries/");
+  const snapshot = await get(getInfo);
+  return snapshot.val();
+}
+
 // Lockers
 
-export function readLockers(station) {
-  const getInfo = ref(db, "stations/" + station);
-  let lockerData = false;
-  onValue(getInfo, (snapshot) => {
-    if (snapshot.exists()) {
-      lockerData = snapshot.val();
-    } else {
-      console.log("No data available");
-    }
-  });
-  return lockerData;
+export async function readLockers() {
+  const getInfo = ref(db, "stations/");
+  const snapshot = await get(getInfo);
+  return snapshot.val();
 }
 
 export function changeLockerState(station, id, state, validation) {
@@ -104,6 +96,52 @@ export function changeLockerState(station, id, state, validation) {
     state,
     validation,
   });
+}
+
+export function readUserDataAndDeliveries(uid) {
+  let getInfo = ref(db, "users/" + uid);
+  let userDataAndDeliveries = { userData: {}, deliveries: {} };
+
+  onValue(getInfo, (snapshot) => {
+    if (snapshot.exists()) {
+      userDataAndDeliveries.userData = snapshot.val();
+    } else {
+      console.log("No data available");
+    }
+  });
+
+  getInfo = ref(db, "deliveries/");
+
+  onValue(getInfo, (snapshot) => {
+    if (snapshot.exists()) {
+      userDataAndDeliveries.deliveries = snapshot.val();
+    } else {
+      console.log("No data available");
+    }
+  });
+
+  return userDataAndDeliveries;
+}
+
+export async function readTokens(uid) {
+  const getInfo = ref(db, "users/" + uid + "/tokens");
+  const snapshot = await get(getInfo);
+  return snapshot.val();
+}
+
+export function reduceTokens(uid, tokens) {
+  set(ref(db, "users/" + uid + "/tokens"), tokens - 1);
+}
+
+export function addTokens(uid, newTokens = 1) {
+  let currentTokens;
+  (async () => {
+    currentTokens = await readTokens(uid);
+    if (currentTokens !== undefined) {
+      set(ref(db, "users/" + uid + "/tokens"), currentTokens + newTokens);
+      return;
+    }
+  })();
 }
 
 // Function usada para crear todos los lockers.

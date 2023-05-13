@@ -5,9 +5,12 @@ import {
   changeDeliveryState,
   takeDelivery,
   changeLockerState,
+  readDeliveries,
+  readLockers,
 } from "services/database/firebaseCalls";
 import { ReactComponent as OptionsSvg } from "media/images/options.svg";
 import { UserAuth } from "context/authContext";
+import { Toaster, toast } from "sonner";
 
 //Componente que crea una orden con su respectivo id, start y end.
 const Order = ({ id, start, end, handleTake, taken }) => {
@@ -195,6 +198,10 @@ const Orders = () => {
         setLockers([]);
       }
     });
+    // (async () => {
+    //   setOrders(await readDeliveries());
+    //   setLockers(await readLockers());
+    // })();
   }, []);
 
   const handleOpen = () => setOpen(true);
@@ -209,14 +216,15 @@ const Orders = () => {
       takeDelivery(id, idConnector);
       changeDeliveryState(id, "En Curso");
       handleOpen();
+      toast.success("Pedido Tomado!");
     } else if (taken === id) {
       setTakeOut(false);
       chooseLocker(id);
       changeDeliveryState(id, "En Locker");
       handleOpen();
-      console.log("Pedido entregado");
+      toast.success("Pedido entregado!");
     } else {
-      console.log("Un pedido ya ha sido tomado.");
+      toast.error("Ya tomaste un pedido!");
     }
   };
 
@@ -413,6 +421,7 @@ const Orders = () => {
         station={locker.station}
         loaded={locker}
       />
+      <Toaster richColors position="bottom-center" />
     </>
   );
 };
