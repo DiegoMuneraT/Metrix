@@ -20,7 +20,6 @@ import { readUserData } from 'services/database/firebaseCalls';
 
 const manageUsers = (uid) => {
     const userData = readUserData(uid);
-    console.log(userData);
     try {
         switch (userData.userType) {
             case 'conector':
