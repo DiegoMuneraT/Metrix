@@ -129,8 +129,8 @@ export async function readTokens(uid) {
   return snapshot.val();
 }
 
-export function reduceTokens(uid, tokens) {
-  set(ref(db, "users/" + uid + "/tokens"), tokens - 1);
+export function reduceTokens(uid, tokens, newTokens = 1) {
+  set(ref(db, "users/" + uid + "/tokens"), tokens - newTokens);
 }
 
 export function addTokens(uid, newTokens = 1) {

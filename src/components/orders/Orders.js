@@ -221,6 +221,10 @@ const Orders = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const handleTokens = () => {
+    window.location.href = "connector/tokens";
+  };
+
   // función que cambia el valor de taken al id de la orden y actualiza el estado
   const handleTake = (id) => {
     const taken = existsTaken();
@@ -370,9 +374,10 @@ const Orders = () => {
           userType="vendedor"
           userName={userData.name}
           tokens={userData.tokens}
+          handleTokens={handleTokens}
         />
       ) : (
-        <NavBar userType="vendedor" />
+        <NavBar userType="vendedor" handleTokens={handleTokens} />
       )}
       <Box
         sx={{
