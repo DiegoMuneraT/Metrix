@@ -12,7 +12,7 @@ import {
 import theme from "components/theme/getTheme";
 import State from "components/state/State";
 import Copyright from "components/copyright/Copyright";
-import TypeUser from "components/typeUser/TypeUser";
+import BestTypeProduct from "components/typeProduct/BestTypeProduct";
 
 function buyer() {
   return (
@@ -30,7 +30,7 @@ function buyer() {
           <State />
         </Box>
         <Copyright sx={{ mt: 5 }} />
-        <TypeUser />
+        <BestTypeProduct/>
       </Container>
     </ThemeProvider>
   );

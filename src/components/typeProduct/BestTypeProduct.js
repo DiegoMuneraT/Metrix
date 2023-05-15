@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { Typography } from "@mui/material";
 
-const TypeUser = () => {
+const BestTypeProduct = () => {
   const [orders, setOrders] = useState({});
 
   useEffect(() => {
@@ -24,12 +24,13 @@ const User = ({ orders }) => {
   const keys = Object.keys(orders);
   let stationCounter = {};
   keys.forEach((key) => {
-    const currentStation = orders[key].start;
+    const currentStation = orders[key].productType;
     if (currentStation in stationCounter) {
       stationCounter[currentStation] += 1;
     } else {
       stationCounter[currentStation] = 1;
     }
+    return stationCounter;
   });
 
   
@@ -47,16 +48,17 @@ const User = ({ orders }) => {
 
 
   return (
-    <Typography align="center">
-      Hay {'1'} usuarios registrados como Conector<br/>
-      Hay {'2'} usuarios registrados como Vendedor<br/>
-      Hay {'3'} usuarios registrados como Comprador
-      {console.log(typeUser())}
-    </Typography>
-
-
-
-  );
+    <Typography
+    component="h6"
+    variant="h6"
+    sx={{ fontWeight: "600", color: "#8BC34A", mt: 3.4, mb: 0.6 }}
+    align="center"
+  >
+    {typeUser()} es el tipo de producto mas enviado en METRIX
+    
+  </Typography>
+  
+  )
 };
 
-export default TypeUser;
+export default BestTypeProduct;
