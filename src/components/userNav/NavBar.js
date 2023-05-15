@@ -1,6 +1,12 @@
-import React from "react";
-import { Typography, Grid, Button, Box, Avatar } from "@mui/material";
+// react 
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+// mui
+import { Typography, Grid, Button, Box, Avatar, Popover, Divider, MenuItem } from "@mui/material";
+// componentes
 import { ReactComponent as CoinSvg } from "media/images/coin.svg";
+import { UserAuth } from "context/authContext";
+
 
 const NavBar = ({
   userType = "vendedor",
@@ -14,6 +20,30 @@ const NavBar = ({
       ? /\w+\s\w+/
       : /\w+\s\w+\s\w+/;
   const name = myRe.exec(userName);
+
+  const [open, setOpen] = useState(null);
+
+  const handleOpen = (event) => {
+    setOpen(event.currentTarget);
+  }
+
+  const handleClose = () => {
+    setOpen(null);
+  }
+
+  const { logout } = UserAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/");
+      console.log("You are logged out");
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -33,8 +63,29 @@ const NavBar = ({
         }}
       >
         <Grid xs={1.6} item={true}>
-          <Avatar>{profileLetter}</Avatar>
+          <Avatar onClick={handleOpen} >{profileLetter}</Avatar>
+
+          <Popover
+            open={Boolean(open)}
+            anchorEl={open}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          >
+
+            <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+              Estadísticas
+            </MenuItem>
+
+            <Divider sx={{ borderStyle: 'dashed' }} />
+
+            <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
+              Salir
+            </MenuItem>
+
+          </Popover>
         </Grid>
+        
         <Grid item={true} sx={{ mt: 0.6 }}>
           <Typography component="h3" variant="p">
             {name}
