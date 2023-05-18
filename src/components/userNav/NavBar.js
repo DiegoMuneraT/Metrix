@@ -34,6 +34,10 @@ const NavBar = ({
   const { logout } = UserAuth();
   const navigate = useNavigate();
 
+  const handleNavigate = () => {
+    window.location = "/account/statistics";
+  }
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -73,7 +77,7 @@ const NavBar = ({
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
           >
 
-            <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+            <MenuItem onClick={handleNavigate} sx={{ m: 1 }}>
               Estadísticas
             </MenuItem>
 

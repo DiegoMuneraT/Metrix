@@ -45,8 +45,6 @@ const User = ({ orders }) => {
     }
   };
 
-
-
   return (
     <Typography
     component="h6"
@@ -57,7 +55,6 @@ const User = ({ orders }) => {
     {typeUser()} es el tipo de producto mas enviado en METRIX
     
   </Typography>
-  
   )
 };
 

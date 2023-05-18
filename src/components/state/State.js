@@ -1,5 +1,8 @@
+// react
 import React, { useEffect, useState } from "react";
+// mui
 import { Button, Grid, Box, Typography, Modal } from "@mui/material";
+//components
 import { getDatabase, ref, onValue } from "firebase/database";
 import {
   changeDeliveryState,
@@ -11,6 +14,7 @@ import {
 import { UserAuth } from "context/authContext";
 
 const State = ({ id, start, end, handleTake, taken, state }) => {
+
   return (
     <Grid
       container

@@ -18,6 +18,7 @@ import Buyer from "components/pages/buyer/buyerView";
 import Post from "components/pages/seller/postProduct";
 import SellerTokens from "components/pages/seller/SellerTokens";
 import ConnectorTokens from "components/pages/connector/ConnectorTokens";
+import Statistics from "./statistics/statisticsView";
 
 function App() {
   return (
@@ -83,6 +84,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Buyer />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/account/statistics"
+          element={
+            <ProtectedRoute>
+              <Statistics />
             </ProtectedRoute>
           }
         />

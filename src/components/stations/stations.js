@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { MenuItem, Select } from "@mui/material";
 
 function Stations(props) {
-    const [showStations, setShowStations] = useState(true);
 
     const STATIONS = [
         'Bello',
@@ -31,7 +30,7 @@ function Stations(props) {
             required
             >
             {STATIONS.map((STATION, index) => {
-                if(index === 0 || showStations) {
+                if(index === 0 || true) {
                     return <MenuItem key={index} value={STATION}>{STATION}</MenuItem>
                 }
                 return '';
