@@ -55,15 +55,14 @@ const Account = () => {
           <Box
             sx={{
               marginTop: 8,
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center'
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <Typography component="h3" variant="p" align="center">
-              <CircularProgress/>
+              <CircularProgress />
             </Typography>
-            
           </Box>
           <Copyright sx={{ mt: 5 }} />
         </Container>

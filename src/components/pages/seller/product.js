@@ -1,7 +1,7 @@
 //react
 import React, { useEffect, useState } from "react";
 //@mui
-import { Button, Grid, Box, Typography } from "@mui/material";
+import { Button, Grid, Box, Typography, CircularProgress } from "@mui/material";
 //components
 import { getDatabase, ref, onValue } from "firebase/database";
 import { ReactComponent as OptionsSvg } from "media/images/options.svg";
@@ -74,9 +74,10 @@ const Order = ({ id, start, end, state }) => {
 };
 
 const Product = () => {
-  const [orders, setOrders] = useState([]);
-  const [userData, setUserData] = useState({});
+  const [orders, setOrders] = useState(null);
+  const [userData, setUserData] = useState(null);
   const { user } = UserAuth();
+  const idSeller = user.uid;
 
   useEffect(() => {
     const db = getDatabase();
@@ -85,7 +86,7 @@ const Product = () => {
       if (snapshot.exists()) {
         setOrders(snapshot.val());
       } else {
-        setOrders([]);
+        setOrders(null);
       }
     });
   }, []);
@@ -97,7 +98,7 @@ const Product = () => {
       if (snapshot.exists()) {
         setUserData(snapshot.val());
       } else {
-        setUserData({});
+        setUserData(null);
       }
     });
   }, [user.uid]);
@@ -109,7 +110,10 @@ const Product = () => {
     }
     const orderElements = [];
     keys.forEach((key) => {
-      if (orders[key].state === "Libre" || orders[key].state === "En Curso") {
+      if (
+        (orders[key].state === "Libre" || orders[key].state === "En Curso") &&
+        orders[key].idSeller === idSeller
+      ) {
         orderElements.push(
           <Order
             key={key}
@@ -135,67 +139,71 @@ const Product = () => {
 
   return (
     <>
-      {userData !== null ? (
-        <NavBar
-          userType="vendedor"
-          userName={userData.name}
-          tokens={userData.tokens}
-          handleTokens={handleTokens}
-        />
-      ) : (
-        <NavBar userType="vendedor" />
-      )}
+      {userData != null && orders != null ? (
+        <>
+          <NavBar
+            userType="vendedor"
+            userName={userData.name}
+            tokens={userData.tokens}
+            handleTokens={handleTokens}
+          />
 
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          width: 330,
-          maxWidth: { xs: 400, md: 400 },
-        }}
-      >
-        <Box
-          sx={{
-            mt: 4.2,
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
           <Box
             sx={{
               display: "flex",
-              justifyContent: "center",
-              mb: 0.48,
+              flexDirection: "column",
+              width: 330,
+              maxWidth: { xs: 400, md: 400 },
             }}
           >
-            <Typography
-              component="h6"
-              variant="h6"
+            <Box
               sx={{
-                fontWeight: "600",
-                color: "#8BC34A",
-                lineHeight: "1.25rem",
-                margin: "auto",
+                mt: 4.2,
+                display: "flex",
+                flexDirection: "column",
               }}
-              align="center"
             >
-              TUS PEDIDOS
-            </Typography>
-          </Box>
-          {orderConstructor()}
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mb: 0.48,
+                }}
+              >
+                <Typography
+                  component="h6"
+                  variant="h6"
+                  sx={{
+                    fontWeight: "600",
+                    color: "#8BC34A",
+                    lineHeight: "1.25rem",
+                    margin: "auto",
+                  }}
+                  align="center"
+                >
+                  TUS PEDIDOS
+                </Typography>
+              </Box>
+              {orderConstructor()}
 
-          <Grid item>
-            <Button
-              variant="contained"
-              fullWidth
-              sx={{ mt: 3, mb: 2 }}
-              href="seller/post"
-            >
-              Nuevo Pedido
-            </Button>
-          </Grid>
-        </Box>
-      </Box>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  sx={{ mt: 3, mb: 2 }}
+                  href="seller/post"
+                >
+                  Nuevo Pedido
+                </Button>
+              </Grid>
+            </Box>
+          </Box>
+        </>
+      ) : (
+        <Typography component="h3" variant="p" align="center">
+          <CircularProgress />
+        </Typography>
+      )}
     </>
   );
 };

@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, Grid, Box, Typography, Modal } from "@mui/material";
+import {
+  Button,
+  Grid,
+  Box,
+  Typography,
+  Modal,
+  CircularProgress,
+} from "@mui/material";
 import { getDatabase, ref, onValue } from "firebase/database";
 import {
   changeDeliveryState,
@@ -169,10 +176,10 @@ const ValidationModal = ({
 
 // componente que crea todas las ordenes
 const Orders = () => {
-  const [orders, setOrders] = useState([]);
-  const [lockers, setLockers] = useState([]);
+  const [orders, setOrders] = useState(null);
+  const [lockers, setLockers] = useState(null);
   const [locker, setLocker] = useState([]);
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState(null);
   // const [cancel, setCancel] = useState(false);
   const { user } = UserAuth();
   const idConnector = user.uid;
@@ -188,7 +195,7 @@ const Orders = () => {
       if (snapshot.exists()) {
         setOrders(snapshot.val());
       } else {
-        setOrders([]);
+        setOrders(null);
       }
     });
 
@@ -197,7 +204,7 @@ const Orders = () => {
       if (snapshot.exists()) {
         setLockers(snapshot.val());
       } else {
-        setLockers([]);
+        setLockers(null);
       }
     });
     // (async () => {
@@ -213,7 +220,7 @@ const Orders = () => {
       if (snapshot.exists()) {
         setUserData(snapshot.val());
       } else {
-        setUserData({});
+        setUserData(null);
       }
     });
   }, [user.uid]);
@@ -369,85 +376,90 @@ const Orders = () => {
 
   return (
     <>
-      {userData !== null ? (
-        <NavBar
-          userType="vendedor"
-          userName={userData.name}
-          tokens={userData.tokens}
-          handleTokens={handleTokens}
-        />
-      ) : (
-        <NavBar userType="vendedor" handleTokens={handleTokens} />
-      )}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          width: 330,
-          maxWidth: { xs: 400, md: 400 },
-        }}
-      >
-        <Box
-          sx={{
-            mt: 4.2,
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
+      {userData !== null && lockers !== null && orders != null ? (
+        <>
+          <NavBar
+            userType="vendedor"
+            userName={userData.name}
+            tokens={userData.tokens}
+            handleTokens={handleTokens}
+          />
+
           <Box
             sx={{
               display: "flex",
-              justifyContent: "center",
-              mb: 0.48,
+              flexDirection: "column",
+              width: 330,
+              maxWidth: { xs: 400, md: 400 },
             }}
           >
-            <Typography
-              component="h6"
-              variant="h6"
+            <Box
               sx={{
-                fontWeight: "600",
-                color: "#8BC34A",
-                lineHeight: "1.25rem",
-                margin: "auto",
+                mt: 4.2,
+                display: "flex",
+                flexDirection: "column",
               }}
-              align="center"
             >
-              PEDIDO ACTIVO
-            </Typography>
-            <Box style={{ cursor: "pointer" }}>
-              <OptionsSvg />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mb: 0.48,
+                }}
+              >
+                <Typography
+                  component="h6"
+                  variant="h6"
+                  sx={{
+                    fontWeight: "600",
+                    color: "#8BC34A",
+                    lineHeight: "1.25rem",
+                    margin: "auto",
+                  }}
+                  align="center"
+                >
+                  PEDIDO ACTIVO
+                </Typography>
+                <Box style={{ cursor: "pointer" }}>
+                  <OptionsSvg />
+                </Box>
+              </Box>
+              {takenOrder()}
+            </Box>
+            <Box
+              sx={{
+                mt: 4.2,
+                display: "flex",
+                flexDirection: "column",
+                borderTop: "0.6px solid #1F1F1F",
+              }}
+            >
+              <Typography
+                component="h6"
+                variant="h6"
+                sx={{ fontWeight: "600", color: "#8BC34A", mt: 3.4, mb: 0.6 }}
+                align="center"
+              >
+                PEDIDOS DISPONIBLES
+              </Typography>
+              {orderConstructor()}
             </Box>
           </Box>
-          {takenOrder()}
-        </Box>
-        <Box
-          sx={{
-            mt: 4.2,
-            display: "flex",
-            flexDirection: "column",
-            borderTop: "0.6px solid #1F1F1F",
-          }}
-        >
-          <Typography
-            component="h6"
-            variant="h6"
-            sx={{ fontWeight: "600", color: "#8BC34A", mt: 3.4, mb: 0.6 }}
-            align="center"
-          >
-            PEDIDOS DISPONIBLES
-          </Typography>
-          {orderConstructor()}
-        </Box>
-      </Box>
-      <ValidationModal
-        open={open}
-        handleClose={handleClose}
-        locker={locker.id}
-        idValidation={locker.validation}
-        takeOut={takeOut}
-        station={locker.station}
-        loaded={locker}
-      />
+          <ValidationModal
+            open={open}
+            handleClose={handleClose}
+            locker={locker.id}
+            idValidation={locker.validation}
+            takeOut={takeOut}
+            station={locker.station}
+            loaded={locker}
+          />
+        </>
+      ) : (
+        <Typography component="h3" variant="p" align="center">
+          <CircularProgress />
+        </Typography>
+      )}
       <Toaster richColors position="bottom-center" />
     </>
   );

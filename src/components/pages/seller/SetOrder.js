@@ -13,7 +13,7 @@ const SetOrder = (event, lockers, user) => {
       start: data.get("start"),
       end: data.get("end"),
       state: "Libre",
-      idSeller: "0",
+      idSeller: user.id,
       productType: data.get("productType"),
       price: data.get("price"),
     };

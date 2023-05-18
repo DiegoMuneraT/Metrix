@@ -10,6 +10,7 @@ import {
   Grid,
   TextField,
   Button,
+  CircularProgress,
 } from "@mui/material";
 
 import theme from "components/theme/getTheme";
@@ -72,68 +73,73 @@ const ConnectorTokens = () => {
           }}
         >
           {userData !== null ? (
-            <NavBar
-              userType="vendedor"
-              userName={userData.name}
-              handleTokens={handleTokens}
-              tokens={userData.tokens}
-            />
-          ) : (
-            <NavBar handleTokens={handleTokens} />
-          )}
-          <Box
-            sx={{
-              display: "flex",
-              mb: 0.48,
-              width: "100%",
-              maxWidth: "375px",
-              mt: 4.2,
-            }}
-          >
-            <Box sx={{ cursor: "pointer" }} onClick={handleBack}>
-              <ArrowSvg />
-            </Box>
-            <Typography
-              component="h6"
-              variant="h6"
-              sx={{
-                fontWeight: "600",
-                color: "#8BC34A",
-                lineHeight: "1.25rem",
-                margin: "auto",
-              }}
-              align="center"
-            >
-              REDIMIR TOKENS
-            </Typography>
-          </Box>
-          <Box
-            component="form"
-            autoComplete="off"
-            onSubmit={(event) => redeemTokens(event)}
-            sx={{ mt: 3 }}
-          >
-            <Grid container spacing={1}>
-              <Grid item xs={6}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Cantidad"
-                  name="newTokens"
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 1 }}
+            <>
+              <NavBar
+                userType="vendedor"
+                userName={userData.name}
+                handleTokens={handleTokens}
+                tokens={userData.tokens}
+              />
+
+              <Box
+                sx={{
+                  display: "flex",
+                  mb: 0.48,
+                  width: "100%",
+                  maxWidth: "375px",
+                  mt: 4.2,
+                }}
+              >
+                <Box sx={{ cursor: "pointer" }} onClick={handleBack}>
+                  <ArrowSvg />
+                </Box>
+                <Typography
+                  component="h6"
+                  variant="h6"
+                  sx={{
+                    fontWeight: "600",
+                    color: "#8BC34A",
+                    lineHeight: "1.25rem",
+                    margin: "auto",
+                  }}
+                  align="center"
                 >
-                  redimir
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
+                  REDIMIR TOKENS
+                </Typography>
+              </Box>
+              <Box
+                component="form"
+                autoComplete="off"
+                onSubmit={(event) => redeemTokens(event)}
+                sx={{ mt: 3 }}
+              >
+                <Grid container spacing={1}>
+                  <Grid item xs={6}>
+                    <TextField
+                      required
+                      fullWidth
+                      label="Cantidad"
+                      name="newTokens"
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 1 }}
+                    >
+                      redimir
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Box>
+            </>
+          ) : (
+            <Typography component="h3" variant="p" align="center">
+              <CircularProgress />
+            </Typography>
+          )}
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
