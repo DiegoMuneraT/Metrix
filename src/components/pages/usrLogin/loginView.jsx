@@ -10,6 +10,8 @@ import {
   Typography,
   Container,
   ThemeProvider,
+  Avatar,
+  Link,
 } from "@mui/material";
 // media
 import logo from "media/images/logopng.png";
@@ -17,7 +19,6 @@ import logo from "media/images/logopng.png";
 import theme from "components/theme/getTheme";
 import auth_login from "components/loginForm/auth_login";
 import Copyright from "components/copyright/Copyright";
-import BestStation from "components/bestStation/BestStation";
 
 function Login() {
   return (
@@ -26,21 +27,16 @@ function Login() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Box
-            component="img"
-            sx={{
-              height: 110,
-              width: 180,
-              maxHeight: { xs: 110, md: 180 },
-              maxWidth: { xs: 180, md: 180 },
-            }}
+          <Avatar
+            alt='Metrix'
             src={logo}
+            sx={{ width: 150, height: 150 }}
           />
 
           <Typography component="h1" variant="h5">
@@ -91,7 +87,15 @@ function Login() {
                   {" "}
                   Iniciar Sesión{" "}
                 </Button>
-                <BestStation />
+
+                <Grid container justifyContent="flex-end">
+                  <Grid item>
+                    <Link href="/register" variant="body2">
+                      No te has registrado? Registrate!
+                    </Link>
+                  </Grid>
+                </Grid>
+
               </Grid>
             </Grid>
           </Box>

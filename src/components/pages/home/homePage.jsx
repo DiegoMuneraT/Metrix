@@ -5,39 +5,61 @@ import logo from 'media/images/logopng.png'
 import 'media/styles/App.css';
 import theme from "components/theme/getTheme";
 import Copyright from "components/copyright/Copyright";
+import BestStation from "components/bestStation/BestStation";
+
 
 //React
 import React from 'react'
 
+
 //@mui
-import { Button, Grid, ThemeProvider, CssBaseline, Container } from '@mui/material';
+import { Avatar,
+  Button, 
+  Grid, 
+  ThemeProvider, 
+  CssBaseline, 
+  Container, 
+  Box, 
+  Typography
+} from '@mui/material';
 
 function homePage() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Bienvenido a Metrix 🔥
-        </p>
-        <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: -2,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar
+            alt='Metrix'
+            src={logo}
+            sx={{ width: 350, height: 350 }}
+          />
 
-            <Grid item>
-              <Button variant="contained" fullWidth sx={{ mt: 3, mb: 2 }} href="/login">Iniciar Sesion</Button>
-            </Grid>
+          <Typography component="h1" variant="h5">
+            Bienvenido a Metrix
+          </Typography>
+        </Box>
 
-            <Grid item>
-                <Button variant="contained" fullWidth sx={{ mt: 3, mb: 2 }} href="/register">Registrarse</Button>
-            </Grid>
+        <Grid item>
+            <Button variant="contained" fullWidth sx={{ mt: 3, mb: 2 }} href="/login">Iniciar Sesion</Button>
+          </Grid>
 
-            <Copyright sx={{ mt: 5 }} />
-          </Container>
-        </ThemeProvider>
-        
-      </header>
-    </div>
+          <Grid item>
+            <Button variant="contained" fullWidth sx={{ mt: 3, mb: 2 }} href="/register">Registrarse</Button>
+          </Grid>
+
+          <BestStation />
+
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
+    </ThemeProvider>
   )
 }
 
