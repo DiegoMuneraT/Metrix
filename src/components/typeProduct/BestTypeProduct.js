@@ -52,7 +52,7 @@ const User = ({ orders }) => {
     sx={{ fontWeight: "600", color: "#8BC34A", mt: 3.4, mb: 0.6 }}
     align="center"
   >
-    {typeUser()} es el tipo de producto mas enviado en METRIX
+    🔥 {typeUser()} producto mas enviado en METRIX 🔥
     
   </Typography>
   )

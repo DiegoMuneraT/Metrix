@@ -359,7 +359,17 @@ const States = () => {
           </Typography>
           {orderConstructor(orders)}
         </Box>
+        <Box
+          sx={{
+            mt: 4.2,
+            display: "flex",
+            flexDirection: "column",
+            borderTop: "0.6px solid #1F1F1F",
+          }}
+        >
+        </Box>
       </Box>
+
       <ValidationModal
         open={open}
         handleClose={handleClose}
