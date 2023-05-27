@@ -1,4 +1,7 @@
+// react
 import React from 'react';
+
+// @chartjs
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, RadialLinearScale } from 'chart.js';
 import { Pie, PolarArea, Line } from 'react-chartjs-2';
 
@@ -89,4 +92,3 @@ export const lineOptions = {
   export function LineChart() {
     return <Line options={lineOptions} data={lineData} />;
   }
-  
