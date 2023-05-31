@@ -46,7 +46,7 @@ function ErrorPage() {
             Oops!
           </Typography>
           <Typography component="h1" variant="h5">
-            Sorry, an unexpected error has occurred!
+            Lo sentimos, algo ha pasado en el servidor :(
           </Typography>
           <Typography component="h1" variant="h5">
             <i>{error.statusText || error.message}</i>

@@ -135,9 +135,18 @@ const SellerTokens = () => {
               </Box>
             </>
           ) : (
-            <Typography component="h3" variant="p" align="center">
-              <CircularProgress />
-            </Typography>
+            <Box
+              sx={{
+                marginTop: 8,
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Typography component="h3" variant="p" align="center">
+                <CircularProgress />
+              </Typography>
+            </Box>
           )}
         </Box>
         <Copyright sx={{ mt: 5 }} />

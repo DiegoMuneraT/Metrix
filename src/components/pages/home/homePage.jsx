@@ -19,8 +19,8 @@ import { Avatar,
   ThemeProvider, 
   CssBaseline, 
   Container, 
-  Box, 
-  Typography
+  Box,
+  Typography, 
 } from '@mui/material';
 
 function homePage() {
@@ -39,11 +39,11 @@ function homePage() {
           <Avatar
             alt='Metrix'
             src={logo}
-            sx={{ width: 350, height: 350 }}
+            sx={{ width: 350, height: 350}}
           />
 
           <Typography component="h1" variant="h5">
-            Bienvenido a Metrix
+            Bienvenido a <strong>Metrix</strong>
           </Typography>
         </Box>
 
