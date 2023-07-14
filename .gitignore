@@ -1,13 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# components
-firebaseConfig.js
-firebaseInit.js
-
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
+firebase/
 
 # testing
 /coverage
